@@ -9,7 +9,7 @@ Source code for the official **[DanOverlay](https://danoverlay.pages.dev/)** web
 
 ## Links
 
-- **Live Website:** https://danoverlay.pages.dev/
+- **Live Website:** https://dan-overlay.pages.dev/
 - **Main Program Repository:** https://github.com/acarranzao1a-png/Dan-Overlay
 - **Latest Releases:** https://github.com/acarranzao1a-png/Dan-Overlay/releases
 
