@@ -1,0 +1,369 @@
+{
+  "meta": {
+    "descripcion": "Snapshot canonico de los benchmarks del sitio, recomputado desde los CSVs.",
+    "high_pool": 1103,
+    "full_pool": 1262,
+    "canon_pool": 60,
+    "fuente": "results/*.csv del VSRG-DanEstimation-Benchmark; canon segun la submission publicada",
+    "updated": "2026-11-18"
+  },
+  "high": {
+    "ISOR": {
+      "valid": 1103,
+      "mae": 0.1722,
+      "rmse": 0.2499,
+      "exact": 71.89,
+      "close": 95.38,
+      "moderate": 4.26,
+      "miss": 0.36
+    },
+    "Koishi": {
+      "valid": 1096,
+      "mae": 0.151,
+      "rmse": 0.1996,
+      "exact": 71.53,
+      "close": 97.99,
+      "moderate": 1.92,
+      "miss": 0.09
+    },
+    "XDC1": {
+      "valid": 1102,
+      "mae": 0.1717,
+      "rmse": 0.2314,
+      "exact": 67.97,
+      "close": 95.74,
+      "moderate": 3.99,
+      "miss": 0.27
+    },
+    "Mixed": {
+      "valid": 1103,
+      "mae": 0.1699,
+      "rmse": 0.2275,
+      "exact": 69.72,
+      "close": 96.01,
+      "moderate": 3.9,
+      "miss": 0.09
+    },
+    "ROXY": {
+      "valid": 1096,
+      "mae": 0.198,
+      "rmse": 0.274,
+      "exact": 63.78,
+      "close": 94.98,
+      "moderate": 4.47,
+      "miss": 0.55
+    },
+    "Azusa": {
+      "valid": 1101,
+      "mae": 0.2183,
+      "rmse": 0.3085,
+      "exact": 59.13,
+      "close": 93.28,
+      "moderate": 5.27,
+      "miss": 1.45
+    },
+    "Daniel": {
+      "valid": 1099,
+      "mae": 0.4088,
+      "rmse": 0.4809,
+      "exact": 23.38,
+      "close": 67.52,
+      "moderate": 30.39,
+      "miss": 2.09
+    },
+    "Sunny": {
+      "valid": 1103,
+      "mae": 0.5156,
+      "rmse": 0.6797,
+      "exact": 36.17,
+      "close": 57.21,
+      "moderate": 34.72,
+      "miss": 8.07
+    },
+    "Companella": {
+      "valid": 1103,
+      "mae": 0.3666,
+      "rmse": 0.5061,
+      "exact": 38.98,
+      "close": 76.97,
+      "moderate": 17.59,
+      "miss": 5.44
+    }
+  },
+  "full": {
+    "ISOR": {
+      "valid": 1262,
+      "mae": 0.1962,
+      "rmse": 0.2875,
+      "exact": 67.83,
+      "close": 92.63,
+      "moderate": 6.5,
+      "miss": 0.87
+    },
+    "Koishi": {
+      "valid": 1106,
+      "mae": 0.154,
+      "rmse": 0.2046,
+      "exact": 70.89,
+      "close": 97.47,
+      "moderate": 2.44,
+      "miss": 0.09
+    },
+    "XDC1": {
+      "valid": 1144,
+      "mae": 0.1803,
+      "rmse": 0.2498,
+      "exact": 66.87,
+      "close": 94.67,
+      "moderate": 4.81,
+      "miss": 0.52
+    },
+    "Mixed": {
+      "valid": 1262,
+      "mae": 0.2075,
+      "rmse": 0.302,
+      "exact": 65.06,
+      "close": 91.2,
+      "moderate": 7.53,
+      "miss": 1.27
+    },
+    "ROXY": {
+      "valid": 1119,
+      "mae": 0.2093,
+      "rmse": 0.2966,
+      "exact": 62.65,
+      "close": 93.66,
+      "moderate": 5.0,
+      "miss": 1.34
+    },
+    "Azusa": {
+      "valid": 1260,
+      "mae": 0.2555,
+      "rmse": 0.3713,
+      "exact": 55.32,
+      "close": 88.33,
+      "moderate": 8.97,
+      "miss": 2.7
+    },
+    "Daniel": {
+      "valid": 1140,
+      "mae": 0.4216,
+      "rmse": 0.5012,
+      "exact": 22.72,
+      "close": 66.4,
+      "moderate": 30.44,
+      "miss": 3.16
+    },
+    "Sunny": {
+      "valid": 1262,
+      "mae": 0.5563,
+      "rmse": 0.7452,
+      "exact": 35.1,
+      "close": 55.07,
+      "moderate": 33.52,
+      "miss": 11.41
+    },
+    "Companella": {
+      "valid": 1262,
+      "mae": 0.4276,
+      "rmse": 0.6408,
+      "exact": 37.08,
+      "close": 73.06,
+      "moderate": 18.86,
+      "miss": 8.08
+    }
+  },
+  "canon": {
+    "ISOR": {
+      "valid": 60,
+      "mae": 0.3213,
+      "rmse": 0.4503,
+      "exact": 40.0,
+      "close": 85.0
+    },
+    "ROXY": {
+      "valid": 46,
+      "mae": 0.2435,
+      "rmse": 0.3231,
+      "exact": 56.5,
+      "close": 93.5
+    },
+    "Daniel": {
+      "valid": 51,
+      "mae": 0.3235,
+      "rmse": 0.4286,
+      "exact": 39.2,
+      "close": 78.4
+    },
+    "Mixed": {
+      "valid": 60,
+      "mae": 0.3433,
+      "rmse": 0.5199,
+      "exact": 51.7,
+      "close": 83.3
+    },
+    "Sunny": {
+      "valid": 60,
+      "mae": 0.345,
+      "rmse": 0.5074,
+      "exact": 56.7,
+      "close": 70.0
+    },
+    "Azusa": {
+      "valid": 60,
+      "mae": 0.3552,
+      "rmse": 0.4762,
+      "exact": 38.3,
+      "close": 78.3
+    },
+    "Companella": {
+      "valid": 60,
+      "mae": 0.7313,
+      "rmse": 1.0728,
+      "exact": 35.0,
+      "close": 58.3
+    }
+  },
+  "stacks": {
+    "ISOR": [
+      71.89,
+      23.49,
+      4.26,
+      0.36
+    ],
+    "Koishi": [
+      71.53,
+      26.46,
+      1.92,
+      0.09
+    ],
+    "Mixed": [
+      69.72,
+      26.29,
+      3.9,
+      0.09
+    ],
+    "ROXY": [
+      63.78,
+      31.2,
+      4.47,
+      0.55
+    ],
+    "Azusa": [
+      59.13,
+      34.15,
+      5.27,
+      1.45
+    ],
+    "Daniel": [
+      23.38,
+      44.14,
+      30.39,
+      2.09
+    ]
+  },
+  "h2h": {
+    "Koishi": {
+      "n": 1106,
+      "mae_isor": 0.1741,
+      "mae_opp": 0.154,
+      "wins": 508,
+      "losses": 561,
+      "ties": 37
+    },
+    "XDC1": {
+      "n": 1144,
+      "mae_isor": 0.1793,
+      "mae_opp": 0.1803,
+      "wins": 548,
+      "losses": 546,
+      "ties": 50
+    },
+    "Mixed": {
+      "n": 1262,
+      "mae_isor": 0.1962,
+      "mae_opp": 0.2075,
+      "wins": 637,
+      "losses": 581,
+      "ties": 44
+    },
+    "ROXY": {
+      "n": 1119,
+      "mae_isor": 0.1764,
+      "mae_opp": 0.2093,
+      "wins": 622,
+      "losses": 456,
+      "ties": 41
+    },
+    "Azusa": {
+      "n": 1260,
+      "mae_isor": 0.196,
+      "mae_opp": 0.2555,
+      "wins": 726,
+      "losses": 484,
+      "ties": 50
+    },
+    "Daniel": {
+      "n": 1140,
+      "mae_isor": 0.1791,
+      "mae_opp": 0.4216,
+      "wins": 916,
+      "losses": 214,
+      "ties": 10
+    },
+    "Sunny": {
+      "n": 1262,
+      "mae_isor": 0.1962,
+      "mae_opp": 0.5563,
+      "wins": 974,
+      "losses": 276,
+      "ties": 12
+    },
+    "Companella": {
+      "n": 1262,
+      "mae_isor": 0.1962,
+      "mae_opp": 0.4276,
+      "wins": 907,
+      "losses": 332,
+      "ties": 23
+    }
+  },
+  "patterns": {
+    "jack": {
+      "valid": 355,
+      "mae": 0.1614,
+      "rmse": 0.2196,
+      "exact": 72.96,
+      "close": 96.34,
+      "moderate": 3.38,
+      "miss": 0.28
+    },
+    "speed": {
+      "valid": 247,
+      "mae": 0.1858,
+      "rmse": 0.2488,
+      "exact": 68.42,
+      "close": 94.33,
+      "moderate": 5.67,
+      "miss": 0.0
+    },
+    "stamina": {
+      "valid": 282,
+      "mae": 0.1496,
+      "rmse": 0.2124,
+      "exact": 78.37,
+      "close": 97.16,
+      "moderate": 2.48,
+      "miss": 0.35
+    },
+    "tech": {
+      "valid": 207,
+      "mae": 0.202,
+      "rmse": 0.3321,
+      "exact": 67.15,
+      "close": 92.27,
+      "moderate": 6.76,
+      "miss": 0.97
+    }
+  }
+}

@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DanOverlay 3.2 — by 8DOUL</title>
+  <meta name="description"
+    content="Real-time Dan estimation overlay for osu!mania and Etterna (4K/7K). Powered by the ISOR 3.2 engine (#1 exact-tier rate on VSRG benchmarks). Native Etterna simfile support (.sm/.ssc), Wife% & grade tracking, Reform, Celestial, and 12 skins.">
+  <meta property="og:title" content="DanOverlay 3.2 — by 8DOUL">
+  <meta property="og:description"
+    content="Real-time Dan estimation overlay for osu!mania and Etterna (4K/7K). Powered by the ISOR 3.2 engine (#1 exact-tier rate on VSRG benchmarks). Native Etterna simfile support (.sm/.ssc), Wife% & grade tracking, Reform, Celestial, and 12 skins.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danoverlay.pages.dev/">
+  <meta property="og:image" content="https://danoverlay.pages.dev/images/image4.png">
+  <meta property="og:image:width" content="700">
+  <meta property="og:image:height" content="325">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DanOverlay 3.2 — by 8DOUL">
+  <meta name="twitter:description"
+    content="Real-time Dan estimation overlay for osu!mania and Etterna (4K/7K). Powered by the ISOR 3.2 engine (#1 exact-tier rate on VSRG benchmarks). Native Etterna simfile support (.sm/.ssc), Wife% & grade tracking, Reform, Celestial, and 12 skins.">
+  <meta name="twitter:image" content="https://danoverlay.pages.dev/images/image4.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="images/graph.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css?v=3.2">
+</head>
+
+<body>
+
+  <!-- ── Animated Morphing Gradient Background ────────── -->
+  <div class="gradient-bg" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" style="position:fixed;top:0;left:0;width:0;height:0">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+          <feBlend in="SourceGraphic" in2="goo" />
+        </filter>
+      </defs>
+    </svg>
+    <div class="gradients-container">
+      <div class="g1"></div>
+      <div class="g2"></div>
+      <div class="g3"></div>
+      <div class="g4"></div>
+      <div class="g5"></div>
+      <div class="g6"></div>
+      <div class="g7"></div>
+      <div class="interactive"></div>
+    </div>
+  </div>
+
+  <!-- ── Full-Width Navbar ─────────────── -->
+  <!-- ── Floating Glass Navbar ─────────────── -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo" aria-label="DanOverlay Home">
+        <div class="logo-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <span class="logo-text">DanOverlay</span>
+        <span class="logo-version">v3.2</span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="#how-it-works" class="nav-link"><span>Features</span></a>
+        <a href="#benchmarks" class="nav-link"><span>Benchmarks</span></a>
+        <a href="#gallery" class="nav-link"><span>Gallery</span></a>
+        <a href="#honesty" class="nav-link"><span>Accuracy</span></a>
+        <a href="#changelog" class="nav-link"><span>Changelog</span></a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://github.com/acarranzao1a-png/Dan-Overlay" target="_blank" rel="noopener" class="header-gh-btn"
+          aria-label="GitHub Repository">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="#download" class="header-cta">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+          <span>Download</span>
+          <span class="cta-shine"></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Hero ──────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content anim-in">
+      <a href="#changelog" class="hero-pill-badge">
+        <span class="hero-pill-dot"></span>
+        <span class="hero-pill-text">v3.2 · The Rice Model</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
+
+      <h1 class="hero-title">Know your Dan level<br><span class="hero-title-accent">in real time.</span></h1>
+      <p class="hero-desc">
+        Connects to tosu or Etterna, reads your current chart, and estimates its Dan tier live.
+        Powered by the <strong>ISOR 3.2 engine</strong> &mdash; #1 exact-tier rate on VSRG Dan benchmarks &mdash;
+        featuring native <strong>Etterna simfile support (.sm/.ssc)</strong>, Wife% accuracy tracking, and 12
+        customizable overlay skins.
+      </p>
+
+      <!-- ── Dual Ecosystem Showcase Bar ── -->
+      <div class="hero-platforms anim-in">
+        <div class="hero-platform-chip hero-platform--mania" title="Supported: osu!mania 4K & 7K via tosu">
+          <img src="images/01-base_mania.png" alt="osu!mania" class="hero-platform-img">
+          <div class="hero-platform-info">
+            <span class="hero-platform-tag">osu!mania</span>
+            <span class="hero-platform-sub">4K &amp; 7K · tosu Bridge</span>
+          </div>
+        </div>
+        <div class="hero-platform-sep"></div>
+        <div class="hero-platform-chip hero-platform--etterna" title="Supported: Native Etterna .sm & .ssc simfiles">
+          <img src="images/Etterna (1).png" alt="Etterna" class="hero-platform-img">
+          <div class="hero-platform-info">
+            <span class="hero-platform-tag">Etterna</span>
+            <span class="hero-platform-sub">Native .sm/.ssc · Wife%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <div class="hero-btn-group">
+          <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/3.2/DanOverlay.3.2.exe"
+            class="cta-btn cta-btn--primary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+            <span>Download for Windows</span>
+            <span class="cta-shine"></span>
+          </a>
+          <a href="https://github.com/acarranzao1a-png/Dan-Overlay" target="_blank" rel="noopener"
+            class="cta-btn cta-btn--secondary">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            <span>Source Code</span>
+          </a>
+        </div>
+
+        <div class="hero-proof-bar">
+          <div class="hero-proof-item">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M3 9h18M9 21V9" />
+            </svg>
+            <span>12 HUD Skins</span>
+          </div>
+          <span class="hero-proof-dot">·</span>
+          <div class="hero-proof-item">
+            <span class="hero-proof-badge">7K / 4K</span>
+            <span>15 Dan Tiers (α–κ)</span>
+          </div>
+          <span class="hero-proof-dot">·</span>
+          <div class="hero-proof-item">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+              style="color: var(--blue);">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Highest exact-tier rate on the VSRG benchmark</span>
+          </div>
+          <span class="hero-proof-dot">·</span>
+          <div class="hero-proof-item">
+            <span class="hero-proof-sub">Free &amp; Open Source</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skin-showcase anim-in">
+      <!-- Monolith: 410x534 collapsed / 386x768 expanded — vertical card -->
+      <div class="skin-card skin-card--monolith">
+        <div class="ba-crossfade" data-label-before="COLLAPSED" data-label-after="EXPANDED"
+          data-tier-before="Monolith <small>UI-4</small>" data-tier-after="Monolith <small>UI-4</small>">
+          <img src="images/Overlay Skins/Monolith(Collapsed).png" alt="Monolith Collapsed"
+            class="ba-frame ba-frame-before">
+          <img src="images/Overlay Skins/Monolith(Expanded).png" alt="Monolith Expanded"
+            class="ba-frame ba-frame-after">
+          <div class="ba-badge">
+            <span class="ba-badge-label">COLLAPSED</span>
+            <span class="ba-badge-tier">Monolith <small>UI-4</small></span>
+          </div>
+          <div class="ba-progress">
+            <div class="ba-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: Broadcast (1014x203→362) + Vignette (944x376→523) — both horizontal -->
+      <div class="skin-card--right">
+        <!-- Broadcast: 1014x203 collapsed / 1014x362 expanded -->
+        <div class="ba-crossfade" data-label-before="COLLAPSED" data-label-after="EXPANDED"
+          data-tier-before="Broadcast <small>UI-5</small>" data-tier-after="Broadcast <small>UI-5</small>">
+          <img src="images/Overlay Skins/Broadcast(Collapsed).png" alt="Broadcast Collapsed"
+            class="ba-frame ba-frame-before">
+          <img src="images/Overlay Skins/Broadcast(Expanded).png" alt="Broadcast Expanded"
+            class="ba-frame ba-frame-after">
+          <div class="ba-badge">
+            <span class="ba-badge-label">COLLAPSED</span>
+            <span class="ba-badge-tier">Broadcast <small>UI-5</small></span>
+          </div>
+          <div class="ba-progress">
+            <div class="ba-progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- Vignette: 944x376 collapsed / 918x523 expanded -->
+        <div class="ba-crossfade" data-label-before="COLLAPSED" data-label-after="EXPANDED"
+          data-tier-before="Vignette <small>UI-6</small>" data-tier-after="Vignette <small>UI-6</small>">
+          <img src="images/Overlay Skins/Vignette(Collapsed).png" alt="Vignette Collapsed"
+            class="ba-frame ba-frame-before">
+          <img src="images/Overlay Skins/Vignette(Expanded).png" alt="Vignette Expanded"
+            class="ba-frame ba-frame-after">
+          <div class="ba-badge">
+            <span class="ba-badge-label">COLLAPSED</span>
+            <span class="ba-badge-tier">Vignette <small>UI-6</small></span>
+          </div>
+          <div class="ba-progress">
+            <div class="ba-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="tier-bar anim-in">
+      <div class="tier-item"><img src="images/Dan Greek Letters/11-alpha.png" alt="Alpha"><span>α</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/12-beta.png" alt="Beta"><span>β</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/13-gamma.png" alt="Gamma"><span>γ</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/14-delta.png" alt="Delta"><span>δ</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/15-epsilon.png" alt="Epsilon"><span>ε</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/16-zeta.png" alt="Zeta"><span>ζ</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/17-eta.png" alt="Eta"><span>η</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/18-theta.png" alt="Theta"><span>θ</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/19-iota.png" alt="Iota"><span>ι</span></div>
+      <div class="tier-item"><img src="images/Dan Greek Letters/20-kappa.png" alt="Kappa"><span>κ</span></div>
+    </div>
+    <p class="tier-credit">Ten Reform tiers · α through κ · logos by <strong>icyilc</strong></p>
+  </section>
+
+  <!-- ── How It Works: Core Architecture & Capabilities ── -->
+  <section class="how-section" id="how-it-works">
+    <div class="wrap">
+      <div class="section-intro anim-in">
+        <h2>Core Architecture &amp; Capabilities</h2>
+        <p>Real-time difficulty evaluation, pattern classification, and telemetry for competitive VSRGs.</p>
+      </div>
+
+      <div class="feature-panels">
+        <div class="panel anim-in" style="--delay:0s">
+          <div class="panel-accent panel-accent--blue"></div>
+          <div class="panel-number">01</div>
+          <div class="panel-icon-wrap">
+            <div class="panel-icon ci-blue">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" viewBox="0 0 24 24">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg>
+            </div>
+            <span class="panel-chip panel-chip--mania"><img src="images/01-base_mania.png" alt=""
+                class="panel-chip-img"> osu!mania</span>
+          </div>
+          <h3>Live Dan Estimation</h3>
+          <p>Calculates Reform and Celestial Dan ratings instantly upon song select. Evaluates sustained physical
+            strain, local note density, and difficulty progression using calibrated isotonic regression curves.</p>
+        </div>
+        <div class="panel anim-in" style="--delay:0.1s">
+          <div class="panel-accent panel-accent--teal"></div>
+          <div class="panel-number">02</div>
+          <div class="panel-icon-wrap">
+            <div class="panel-icon ci-teal">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+            </div>
+            <span class="panel-chip panel-chip--etterna"><img src="images/Etterna (1).png" alt=""
+                class="panel-chip-img"> Etterna</span>
+          </div>
+          <h3>Native Etterna Compatibility</h3>
+          <p>Directly parses <code>.sm</code> and <code>.ssc</code> simfiles with real-time rate scaling (0.5×–2.0×).
+            Injects theme telemetry hooks for Til Death, Rebirth, and Simply Love while evaluating live Wife% accuracy
+            metrics.</p>
+        </div>
+        <div class="panel anim-in" style="--delay:0.2s">
+          <div class="panel-accent panel-accent--orange"></div>
+          <div class="panel-number">03</div>
+          <div class="panel-icon-wrap">
+            <div class="panel-icon ci-orange">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M18 20V10M12 20V4M6 20v-6" />
+              </svg>
+            </div>
+            <span class="panel-chip">MinaCalc MSD</span>
+          </div>
+          <h3>Skillset &amp; Pattern Breakdown</h3>
+          <p>Breaks down charts into granular archetypes including Chordjacks, Jumpstream, Handstream, Tech, and
+            Stamina. Computes continuous NPS distributions and dominant MSD difficulty components.</p>
+        </div>
+        <div class="panel anim-in" style="--delay:0.3s">
+          <div class="panel-accent panel-accent--purple"></div>
+          <div class="panel-number">04</div>
+          <div class="panel-icon-wrap">
+            <div class="panel-icon" style="color: #a78bfa;">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" viewBox="0 0 24 24">
+                <path
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <span class="panel-chip">HUD Customization</span>
+          </div>
+          <h3>HUD Skins &amp; Density Graph Export</h3>
+          <p>Includes nine customizable HUD presets with configurable window positioning, opacity, and blur settings.
+            Press <kbd>G</kbd> to render high-resolution PNG density charts directly to your Desktop.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Benchmarks: Visual Suite ────────────────────── -->
+  <section class="benchmarks-section" id="benchmarks">
+    <div class="wrap">
+      <!-- ── Introducing ISOR (Core Engine Architecture) ── -->
+      <div class="isor-intro-card anim-in">
+        <div class="isor-intro-head">
+          <div class="isor-intro-badge-row">
+            <span class="hero-feat-icon hero-feat-icon--v3">v3.0.0 Engine</span>
+            <span class="isor-intro-tag">osu!mania 4K Rice</span>
+          </div>
+          <h3 class="isor-intro-title">Introducing <strong>ISOR</strong></h3>
+          <div class="isor-intro-acronym">
+            <span class="isor-acr isor-acr--i"><b>I</b>sotonic</span>
+            <span class="isor-acr-dot">·</span>
+            <span class="isor-acr isor-acr--s"><b>S</b>train</span>
+            <span class="isor-acr-dot">·</span>
+            <span class="isor-acr isor-acr--o"><b>O</b>rganic</span>
+            <span class="isor-acr-dot">·</span>
+            <span class="isor-acr isor-acr--r"><b>R</b>esidual</span>
+          </div>
+          <p class="isor-intro-desc">
+            Introduced in DanOverlay v3.0 and refined through v3.2, <strong>ISOR</strong> is a high-precision Dan
+            estimation engine specifically engineered for osu!mania 4K rice. Designed to eliminate heuristic step cliffs
+            and rate discontinuities, ISOR calculates difficulty through four continuous physiological and mathematical
+            pillars:
+          </p>
+        </div>
+
+        <div class="isor-pillars-grid">
+          <div class="isor-pillar-card isor-p--i">
+            <div class="isor-pillar-letter">I</div>
+            <div class="isor-pillar-info">
+              <span class="isor-pillar-name">Isotonic (PAVA)</span>
+              <p>Pool Adjacent Violators monotonic calibration on difficulty frontier anchors, guaranteeing strictly
+                monotonic tier progression across rate changes.</p>
+            </div>
+          </div>
+          <div class="isor-pillar-card isor-p--s">
+            <div class="isor-pillar-letter">S</div>
+            <div class="isor-pillar-info">
+              <span class="isor-pillar-name">Strain Physics</span>
+              <p>Models physical finger stamina and muscular fatigue across dual-decay biomechanical streams combined
+                with Shannon column transition entropy.</p>
+            </div>
+          </div>
+          <div class="isor-pillar-card isor-p--o">
+            <div class="isor-pillar-letter">O</div>
+            <div class="isor-pillar-info">
+              <span class="isor-pillar-name">Organic Triangulation</span>
+              <p>Continuous convex triangulation synthesizing modulated Star Rating, burst choke density, and MinaCalc
+                skillset profiles.</p>
+            </div>
+          </div>
+          <div class="isor-pillar-card isor-p--r">
+            <div class="isor-pillar-letter">R</div>
+            <div class="isor-pillar-info">
+              <span class="isor-pillar-name">Residual Meta-Layer</span>
+              <p>An <em>L</em><sub>2</sub>-regularized Ridge meta-layer correcting non-linear residuals over a
+                98-dimensional feature vector for smooth C⁰ continuous accuracy.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ISOR Scope Notice: 4K Rice Only (No LN / No 7K) ── -->
+        <div class="isor-scope-note">
+          <div class="isor-scope-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div class="isor-scope-text">
+            <strong>Target Scope &amp; Map Support:</strong>
+            ISOR is exclusively designed and calibrated for <strong>osu!mania 4K Rice</strong> beatmaps (available under
+            <em>Reform</em> and <em>Celestial</em> modes). It does <strong>not</strong> estimate Long Note (LN-dominant)
+            or 7K charts — for 7K and legacy courses, DanOverlay seamlessly switches to its calibrated legacy estimation
+            engine.
+          </div>
+        </div>
+
+        <!-- ── ISOR Quick Doc & CSV Links ── -->
+        <div style="margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/main/src/08_isor_engine/README.md"
+            target="_blank" rel="noopener" class="cl-dl" style="font-weight: 600;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            Read ISOR Algorithm Documentation (README.md)
+          </a>
+          <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/main/src/08_isor_engine/ISOR.csv"
+            target="_blank" rel="noopener" class="cl-dl"
+            style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.12); color: var(--t1);">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            Download Benchmark Results (ISOR.csv)
+          </a>
+        </div>
+      </div>
+
+      <div class="section-intro anim-in" style="margin-top: 56px;">
+        <h2>Benchmark Results</h2>
+        <p>ISOR was measured locally against every public Dan estimation engine using the methodology and map
+          pool of Leo_Black's VSRG DanEstimation Benchmark (osu!mania 4K rice). It holds the highest
+          exact-tier rate of any estimator and answers every map on the scale; Koishi remains ahead on
+          mean absolute error, which the tables below show alongside the exact rate.</p>
+      </div>
+
+      <div class="bm-stats anim-in">
+        <div class="bm-stat">
+          <span class="bm-stat-value">#1</span>
+          <span class="bm-stat-label">Exact rate · Tiers 11–17 · 1103 maps</span>
+        </div>
+        <div class="bm-stat">
+          <span class="bm-stat-value">71.9%</span>
+          <span class="bm-stat-label">Exact · within ±0.20 Dan</span>
+        </div>
+        <div class="bm-stat">
+          <span class="bm-stat-value">0.1722</span>
+          <span class="bm-stat-label">MAE · 1103 maps · 100% coverage</span>
+        </div>
+        <div class="bm-stat">
+          <span class="bm-stat-value">95.4%</span>
+          <span class="bm-stat-label">Close · within ±0.50 Dan</span>
+        </div>
+      </div>
+
+      <div class="bm-tabs" role="tablist" aria-label="Benchmark datasets">
+        <button class="bm-tab is-active" id="bm-tab-high" role="tab" aria-selected="true" data-bm-tab="high"
+          type="button">High Rice · Tiers 11–17</button>
+        <button class="bm-tab" id="bm-tab-full" role="tab" aria-selected="false" data-bm-tab="full" type="button">Full
+          Rice · Tiers 1–18</button>
+        <button class="bm-tab" id="bm-tab-canon" role="tab" aria-selected="false" data-bm-tab="canon" type="button">Dan
+          Reform Canon</button>
+      </div>
+
+      <!-- Panel: High Rice Scale -->
+      <div class="bm-panel is-active" role="tabpanel" aria-labelledby="bm-tab-high" data-bm-panel="high">
+        <p class="bm-panel-sub">The core arena — 1103 benchmark maps across tiers 11.0 to 17.0, every engine measured on
+          the maps it answers. Lower MAE is better; the exact-rate column is the one ISOR leads.</p>
+        <div class="bm-table-wrap">
+          <table class="bm-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Engine</th>
+                <th>Coverage</th>
+                <th>MAE</th>
+                <th>RMSE</th>
+                <th>Exact ≤0.20</th>
+                <th>Close ≤0.50</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="bm-rank bm-rank-1">#1</span></td>
+                <td class="bm-engine">Koishi <span class="bm-partial">Partial scope</span></td>
+                <td>1096 / 1103 <span class="bm-cov">(99.4%)</span></td>
+                <td class="bm-num">0.1510</td>
+                <td class="bm-num">0.1996</td>
+                <td class="bm-num">71.53%</td>
+                <td class="bm-num">97.99%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank bm-rank-2">#2</span></td>
+                <td class="bm-engine">Mixed</td>
+                <td>1103 / 1103 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.1699</td>
+                <td class="bm-num">0.2275</td>
+                <td class="bm-num">69.72%</td>
+                <td class="bm-num">96.01%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank bm-rank-3">#3</span></td>
+                <td class="bm-engine">XDC1 <span class="bm-partial">Partial scope</span></td>
+                <td>1102 / 1103 <span class="bm-cov">(99.9%)</span></td>
+                <td class="bm-num">0.1717</td>
+                <td class="bm-num">0.2314</td>
+                <td class="bm-num">67.97%</td>
+                <td class="bm-num">95.74%</td>
+              </tr>
+              <tr class="bm-row-isor">
+                <td><span class="bm-rank">#4</span></td>
+                <td class="bm-engine">ISOR (DanOverlay v3.2)</td>
+                <td>1103 / 1103 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.1722</td>
+                <td class="bm-num">0.2499</td>
+                <td class="bm-num">71.89%</td>
+                <td class="bm-num">95.38%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#5</span></td>
+                <td class="bm-engine">ROXY (Leo_Black) <span class="bm-partial">Partial scope</span></td>
+                <td>1096 / 1103 <span class="bm-cov">(99.4%)</span></td>
+                <td class="bm-num">0.1980</td>
+                <td class="bm-num">0.2740</td>
+                <td class="bm-num">63.78%</td>
+                <td class="bm-num">94.98%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#6</span></td>
+                <td class="bm-engine">Azusa <span class="bm-partial">Partial scope</span></td>
+                <td>1101 / 1103 <span class="bm-cov">(99.8%)</span></td>
+                <td class="bm-num">0.2183</td>
+                <td class="bm-num">0.3085</td>
+                <td class="bm-num">59.13%</td>
+                <td class="bm-num">93.28%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#7</span></td>
+                <td class="bm-engine">Companella</td>
+                <td>1103 / 1103 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.3666</td>
+                <td class="bm-num">0.5061</td>
+                <td class="bm-num">38.98%</td>
+                <td class="bm-num">76.97%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#8</span></td>
+                <td class="bm-engine">Daniel <span class="bm-partial">Partial scope</span></td>
+                <td>1099 / 1103 <span class="bm-cov">(99.6%)</span></td>
+                <td class="bm-num">0.4088</td>
+                <td class="bm-num">0.4809</td>
+                <td class="bm-num">23.38%</td>
+                <td class="bm-num">67.52%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#9</span></td>
+                <td class="bm-engine">Sunny (Native)</td>
+                <td>1103 / 1103 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.5156</td>
+                <td class="bm-num">0.6797</td>
+                <td class="bm-num">36.17%</td>
+                <td class="bm-num">57.21%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="bm-sub-title">Accuracy distribution per engine</h3>
+        <div class="bm-legend">
+          <span class="bm-lg"><i class="bm-dot bm-dot-exact"></i>Exact ≤0.20</span>
+          <span class="bm-lg"><i class="bm-dot bm-dot-close"></i>Close ≤0.50</span>
+          <span class="bm-lg"><i class="bm-dot bm-dot-moderate"></i>Moderate ≤1.00</span>
+          <span class="bm-lg"><i class="bm-dot bm-dot-miss"></i>Miss &gt;1.00</span>
+        </div>
+        <div class="bm-stacks">
+          <div class="bm-stack bm-stack-isor">
+            <span class="bm-stack-label">ISOR</span>
+            <div class="bm-track">
+              <i class="bm-seg bm-seg-exact" style="width: 71.89%"><b>71.9</b></i>
+              <i class="bm-seg bm-seg-close" style="width: 23.49%"><b>23.5</b></i>
+              <i class="bm-seg bm-seg-moderate" style="width: 4.26%"></i>
+              <i class="bm-seg bm-seg-miss" style="width: 0.36%"></i>
+            </div>
+          </div>
+          <div class="bm-stack">
+            <span class="bm-stack-label">Koishi</span>
+            <div class="bm-track">
+              <i class="bm-seg bm-seg-exact" style="width: 71.53%"><b>71.5</b></i>
+              <i class="bm-seg bm-seg-close" style="width: 26.46%"><b>26.5</b></i>
+              <i class="bm-seg bm-seg-moderate" style="width: 1.92%"></i>
+              <i class="bm-seg bm-seg-miss" style="width: 0.09%"></i>
+            </div>
+          </div>
+          <div class="bm-stack">
+            <span class="bm-stack-label">Mixed</span>
+            <div class="bm-track">
+              <i class="bm-seg bm-seg-exact" style="width: 69.72%"><b>69.7</b></i>
+              <i class="bm-seg bm-seg-close" style="width: 26.29%"><b>26.3</b></i>
+              <i class="bm-seg bm-seg-moderate" style="width: 3.90%"></i>
+              <i class="bm-seg bm-seg-miss" style="width: 0.09%"></i>
+            </div>
+          </div>
+          <div class="bm-stack">
+            <span class="bm-stack-label">XDC1</span>
+            <div class="bm-track">
+              <i class="bm-seg bm-seg-exact" style="width: 67.97%"><b>68.0</b></i>
+              <i class="bm-seg bm-seg-close" style="width: 27.77%"><b>27.8</b></i>
+              <i class="bm-seg bm-seg-moderate" style="width: 3.99%"></i>
+              <i class="bm-seg bm-seg-miss" style="width: 0.27%"></i>
+            </div>
+          </div>
+          <div class="bm-stack">
+            <span class="bm-stack-label">ROXY</span>
+            <div class="bm-track">
+              <i class="bm-seg bm-seg-exact" style="width: 63.78%"><b>63.8</b></i>
+              <i class="bm-seg bm-seg-close" style="width: 31.20%"><b>31.2</b></i>
+              <i class="bm-seg bm-seg-moderate" style="width: 4.47%"></i>
+              <i class="bm-seg bm-seg-miss" style="width: 0.55%"></i>
+            </div>
+          </div>
+          <div class="bm-stack">
+            <span class="bm-stack-label">Azusa</span>
+            <div class="bm-track">
+              <i class="bm-seg bm-seg-exact" style="width: 59.13%"><b>59.1</b></i>
+              <i class="bm-seg bm-seg-close" style="width: 34.15%"><b>34.1</b></i>
+              <i class="bm-seg bm-seg-moderate" style="width: 5.27%"></i>
+              <i class="bm-seg bm-seg-miss" style="width: 1.45%"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Native Interactive Residual Delta Error Distribution -->
+        <div class="bm-chart-card">
+          <div class="bm-chart-header">
+            <div class="bm-chart-header-text">
+              <div class="bm-chart-title">
+                <span>Residual Error Distribution (Δ = Estimated − Expected Dan)</span>
+                <span class="hero-feat-icon hero-feat-icon--v3">1103 Maps</span>
+              </div>
+              <p class="bm-chart-sub">Probability density histogram of delta errors on the High Rice scale (Tiers
+                11–17). ISOR lands 793 of the 1103 maps inside the exact window (71.9%, MAE 0.1722, σ = 0.2499); its
+                residuals cluster tightly around zero with a thinner tail than the field.</p>
+            </div>
+            <div class="bm-chart-controls">
+              <button class="bm-cbtn is-active" data-delta-engine="ISOR" type="button">ISOR (v3.2)</button>
+              <button class="bm-cbtn" data-delta-engine="Koishi" type="button">Koishi</button>
+              <button class="bm-cbtn" data-delta-engine="Roxy" type="button">ROXY</button>
+              <button class="bm-cbtn" data-delta-engine="Mixed" type="button">Mixed</button>
+              <button class="bm-cbtn" data-delta-engine="Azusa" type="button">Azusa</button>
+              <button class="bm-cbtn" data-delta-engine="Daniel" type="button">Daniel</button>
+            </div>
+          </div>
+          <div class="bm-scatter-wrap" style="aspect-ratio: 16 / 7;">
+            <canvas id="bm-delta-canvas" class="bm-scatter-canvas"></canvas>
+          </div>
+          <div class="bm-delta-stats" id="bm-delta-stats"></div>
+        </div>
+
+        <!-- Native Pattern Skillset Comparative Breakdown -->
+        <div class="bm-chart-card" style="margin-top: 20px;">
+          <div class="bm-chart-header">
+            <div class="bm-chart-header-text">
+              <div class="bm-chart-title">
+                <span>MAE by Mechanical Pattern Skillset</span>
+                <span class="hero-feat-icon hero-feat-icon--v3">Tiers 11–17</span>
+              </div>
+              <p class="bm-chart-sub">Direct comparison of Mean Absolute Error across mechanical archetypes on the core
+                benchmark pool. Lower MAE is better.</p>
+            </div>
+          </div>
+          <div id="bm-pattern-matrix"></div>
+        </div>
+      </div>
+
+      <!-- Panel: Full Rice Scale -->
+      <div class="bm-panel" role="tabpanel" aria-labelledby="bm-tab-full" data-bm-panel="full">
+        <p class="bm-panel-sub">Full coverage run — 1262 maps across the entire rice scale, tiers 1.0 to 18.0.</p>
+        <div class="bm-table-wrap">
+          <table class="bm-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Engine</th>
+                <th>Coverage</th>
+                <th>MAE</th>
+                <th>RMSE</th>
+                <th>Exact ≤0.20</th>
+                <th>Close ≤0.50</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="bm-rank bm-rank-1">#1</span></td>
+                <td class="bm-engine">Koishi <span class="bm-partial">Partial scope</span></td>
+                <td>1106 / 1262 <span class="bm-cov">(87.6%)</span></td>
+                <td class="bm-num">0.1540</td>
+                <td class="bm-num">0.2046</td>
+                <td class="bm-num">70.89%</td>
+                <td class="bm-num">97.47%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank bm-rank-2">#2</span></td>
+                <td class="bm-engine">XDC1 <span class="bm-partial">Partial scope</span></td>
+                <td>1144 / 1262 <span class="bm-cov">(90.6%)</span></td>
+                <td class="bm-num">0.1803</td>
+                <td class="bm-num">0.2498</td>
+                <td class="bm-num">66.87%</td>
+                <td class="bm-num">94.67%</td>
+              </tr>
+              <tr class="bm-row-isor">
+                <td><span class="bm-rank bm-rank-3">#3</span></td>
+                <td class="bm-engine">ISOR (DanOverlay v3.2)</td>
+                <td>1262 / 1262 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.1962</td>
+                <td class="bm-num">0.2875</td>
+                <td class="bm-num">67.83%</td>
+                <td class="bm-num">92.63%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#4</span></td>
+                <td class="bm-engine">Mixed</td>
+                <td>1262 / 1262 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.2075</td>
+                <td class="bm-num">0.3020</td>
+                <td class="bm-num">65.06%</td>
+                <td class="bm-num">91.20%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#5</span></td>
+                <td class="bm-engine">ROXY (Leo_Black) <span class="bm-partial">Partial scope</span></td>
+                <td>1119 / 1262 <span class="bm-cov">(88.7%)</span></td>
+                <td class="bm-num">0.2093</td>
+                <td class="bm-num">0.2966</td>
+                <td class="bm-num">62.65%</td>
+                <td class="bm-num">93.66%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#6</span></td>
+                <td class="bm-engine">Azusa <span class="bm-partial">Partial scope</span></td>
+                <td>1260 / 1262 <span class="bm-cov">(99.8%)</span></td>
+                <td class="bm-num">0.2555</td>
+                <td class="bm-num">0.3713</td>
+                <td class="bm-num">55.32%</td>
+                <td class="bm-num">88.33%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#7</span></td>
+                <td class="bm-engine">Daniel <span class="bm-partial">Partial scope</span></td>
+                <td>1140 / 1262 <span class="bm-cov">(90.3%)</span></td>
+                <td class="bm-num">0.4216</td>
+                <td class="bm-num">0.5012</td>
+                <td class="bm-num">22.72%</td>
+                <td class="bm-num">66.40%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#8</span></td>
+                <td class="bm-engine">Companella</td>
+                <td>1262 / 1262 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.4276</td>
+                <td class="bm-num">0.6408</td>
+                <td class="bm-num">37.08%</td>
+                <td class="bm-num">73.06%</td>
+              </tr>
+              <tr>
+                <td><span class="bm-rank">#9</span></td>
+                <td class="bm-engine">Sunny (Native)</td>
+                <td>1262 / 1262 <span class="bm-cov">(100.0%)</span></td>
+                <td class="bm-num">0.5563</td>
+                <td class="bm-num">0.7452</td>
+                <td class="bm-num">35.10%</td>
+                <td class="bm-num">55.07%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="bm-note">Daniel and ROXY run on a partial scope of the full-scale pool (81.1% and 78.0% coverage
+          respectively), so their numbers are not directly comparable to the 100%-coverage engines. ISOR estimates
+          every map on the scale.</p>
+
+        <!-- Native Interactive Full Scale Scatter Plot -->
+        <div class="bm-chart-card">
+          <div class="bm-chart-header">
+            <div class="bm-chart-header-text">
+              <div class="bm-chart-title">
+                <span>Full Rice Scale Calibration Scatter (Tiers 1.0–18.0)</span>
+                <span class="hero-feat-icon hero-feat-icon--v3">1262 Beatmaps</span>
+              </div>
+              <p class="bm-chart-sub">All 1262 evaluated rice beatmaps plotted against the ideal identity line (y = x).
+                Shaded corridors highlight exact fit (≤0.20 Dan) and close fit (≤0.50 Dan) tolerance bands. Hover any
+                point to inspect full beatmap details.</p>
+            </div>
+            <div class="bm-chart-controls">
+              <button class="bm-cbtn is-active" data-scatter-filter="all" type="button">All (1262)</button>
+              <button class="bm-cbtn" data-scatter-filter="jack" type="button">Jack (395)</button>
+              <button class="bm-cbtn" data-scatter-filter="speed" type="button">Speed (285)</button>
+              <button class="bm-cbtn" data-scatter-filter="tech" type="button">Tech (237)</button>
+              <button class="bm-cbtn" data-scatter-filter="stamina" type="button">Stamina (311)</button>
+              <button class="bm-cbtn" data-scatter-filter="other" type="button">Other (34)</button>
+            </div>
+          </div>
+          <div class="bm-scatter-wrap">
+            <canvas id="bm-scatter-canvas" class="bm-scatter-canvas"></canvas>
+            <div id="bm-scatter-tooltip" class="bm-scatter-tooltip"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel: Dan Reform Canon -->
+      <div class="bm-panel" role="tabpanel" aria-labelledby="bm-tab-canon" data-bm-panel="canon">
+        <p class="bm-panel-sub">The 60 verified canon maps of the official Dan Reform course packs (DDMythical,
+          Emik03, Thaumiel, Cloverwisp) — held out from calibration.</p>
+        <div class="bm-canon-grid">
+          <div class="bm-canon-card bm-canon-isor">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">ISOR (DanOverlay v3.2)</span>
+              <span class="bm-cov-pill bm-cov-pill-full">60 / 60 · 100%</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.3213</b></div>
+              <div><span>RMSE</span><b>0.4503</b></div>
+              <div><span>Exact ≤0.20</span><b>40.0%</b></div>
+              <div><span>Close ≤0.50</span><b>85.0%</b></div>
+            </div>
+          </div>
+          <div class="bm-canon-card">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">ROXY (Leo_Black)</span>
+              <span class="bm-cov-pill bm-cov-pill-partial">46 / 60 · 76.7% partial</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.2435</b></div>
+              <div><span>RMSE</span><b>0.3231</b></div>
+              <div><span>Exact ≤0.20</span><b>56.5%</b></div>
+              <div><span>Close ≤0.50</span><b>93.5%</b></div>
+            </div>
+          </div>
+          <div class="bm-canon-card">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">Daniel</span>
+              <span class="bm-cov-pill bm-cov-pill-partial">51 / 60 · 85.0% partial</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.3235</b></div>
+              <div><span>RMSE</span><b>0.4286</b></div>
+              <div><span>Exact ≤0.20</span><b>39.2%</b></div>
+              <div><span>Close ≤0.50</span><b>78.4%</b></div>
+            </div>
+          </div>
+          <div class="bm-canon-card">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">Mixed</span>
+              <span class="bm-cov-pill bm-cov-pill-full">60 / 60 · 100%</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.3433</b></div>
+              <div><span>RMSE</span><b>0.5199</b></div>
+              <div><span>Exact ≤0.20</span><b>51.7%</b></div>
+              <div><span>Close ≤0.50</span><b>83.3%</b></div>
+            </div>
+          </div>
+          <div class="bm-canon-card">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">Sunny (Native)</span>
+              <span class="bm-cov-pill bm-cov-pill-full">60 / 60 · 100%</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.3450</b></div>
+              <div><span>RMSE</span><b>0.5074</b></div>
+              <div><span>Exact ≤0.20</span><b>56.7%</b></div>
+              <div><span>Close ≤0.50</span><b>70.0%</b></div>
+            </div>
+          </div>
+          <div class="bm-canon-card">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">Azusa</span>
+              <span class="bm-cov-pill bm-cov-pill-full">60 / 60 · 100%</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.3552</b></div>
+              <div><span>RMSE</span><b>0.4762</b></div>
+              <div><span>Exact ≤0.20</span><b>38.3%</b></div>
+              <div><span>Close ≤0.50</span><b>78.3%</b></div>
+            </div>
+          </div>
+          <div class="bm-canon-card">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">Companella</span>
+              <span class="bm-cov-pill bm-cov-pill-full">60 / 60 · 100%</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.7313</b></div>
+              <div><span>RMSE</span><b>1.0728</b></div>
+              <div><span>Exact ≤0.20</span><b>35.0%</b></div>
+              <div><span>Close ≤0.50</span><b>58.3%</b></div>
+            </div>
+          </div>
+          <div class="bm-canon-card">
+            <div class="bm-canon-head">
+              <span class="bm-canon-name">Koishi</span>
+              <span class="bm-cov-pill bm-cov-pill-partial">48 / 131 · 36.6% partial</span>
+            </div>
+            <div class="bm-canon-rows">
+              <div><span>MAE</span><b>0.2253</b></div>
+              <div><span>RMSE</span><b>0.3054</b></div>
+              <div><span>Exact ≤0.20</span><b>54.17%</b></div>
+              <div><span>Close ≤0.50</span><b>89.58%</b></div>
+            </div>
+          </div>
+        </div>
+        <p class="bm-note"><strong>ISOR does not lead on this scope, and the cards are ordered to show it.</strong>
+          On the 60 canon maps ISOR scores 0.3213 MAE; ROXY reaches 0.2435 on the 46 it answers, and Koishi
+          0.2253 on the 48 it answers — on those same 48 ISOR scores 0.2844. ROXY (46/60) and Daniel (51/60)
+          answer only part of the canon, so their figures rest on a subset rather than the full pool, and
+          Koishi files no result for this 60-map selection at all, which is why its card reports the wider
+          131-map official pack set.
+          <br /><br />
+          The reason is structural: these are official dan courses sitting mostly in the high tiers, largely
+          outside the rice model's gate, so the physics projection answers alone here. It is the engine's
+          weakest scope and the page shows it as such rather than dropping the tab.
+        </p>
+
+      </div>
+
+      <!-- Head-to-Head -->
+      <h3 class="bm-block-title">Head-to-head — common maps, full rice scale (Tiers 1–18)</h3>
+      <div class="bm-h2h-grid">
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">Koishi</span>
+            <span class="bm-h2h-n">1106 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 45.9%"></i>
+            <i class="bm-m-tie" style="width: 3.3%"></i>
+            <i class="bm-m-loss" style="width: 50.7%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">508 wins · 45.9%</span>
+            <span class="bm-c-t">37 ties · 3.3%</span>
+            <span class="bm-c-l">561 losses · 50.7%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1741</b> vs 0.1540</div>
+        </div>
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">XDC1</span>
+            <span class="bm-h2h-n">1144 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 47.9%"></i>
+            <i class="bm-m-tie" style="width: 4.4%"></i>
+            <i class="bm-m-loss" style="width: 47.7%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">548 wins · 47.9%</span>
+            <span class="bm-c-t">50 ties · 4.4%</span>
+            <span class="bm-c-l">546 losses · 47.7%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1793</b> vs 0.1803</div>
+        </div>
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">Mixed</span>
+            <span class="bm-h2h-n">1262 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 50.5%"></i>
+            <i class="bm-m-tie" style="width: 3.5%"></i>
+            <i class="bm-m-loss" style="width: 46.0%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">637 wins · 50.5%</span>
+            <span class="bm-c-t">44 ties · 3.5%</span>
+            <span class="bm-c-l">581 losses · 46.0%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1962</b> vs 0.2075</div>
+        </div>
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">ROXY</span>
+            <span class="bm-h2h-n">1119 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 55.6%"></i>
+            <i class="bm-m-tie" style="width: 3.7%"></i>
+            <i class="bm-m-loss" style="width: 40.8%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">622 wins · 55.6%</span>
+            <span class="bm-c-t">41 ties · 3.7%</span>
+            <span class="bm-c-l">456 losses · 40.8%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1764</b> vs 0.2093</div>
+        </div>
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">Azusa</span>
+            <span class="bm-h2h-n">1260 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 57.6%"></i>
+            <i class="bm-m-tie" style="width: 4.0%"></i>
+            <i class="bm-m-loss" style="width: 38.4%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">726 wins · 57.6%</span>
+            <span class="bm-c-t">50 ties · 4.0%</span>
+            <span class="bm-c-l">484 losses · 38.4%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1960</b> vs 0.2555</div>
+        </div>
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">Daniel</span>
+            <span class="bm-h2h-n">1140 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 80.4%"></i>
+            <i class="bm-m-tie" style="width: 0.9%"></i>
+            <i class="bm-m-loss" style="width: 18.8%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">916 wins · 80.4%</span>
+            <span class="bm-c-t">10 ties · 0.9%</span>
+            <span class="bm-c-l">214 losses · 18.8%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1791</b> vs 0.4216</div>
+        </div>
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">Sunny</span>
+            <span class="bm-h2h-n">1262 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 77.2%"></i>
+            <i class="bm-m-tie" style="width: 1.0%"></i>
+            <i class="bm-m-loss" style="width: 21.9%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">974 wins · 77.2%</span>
+            <span class="bm-c-t">12 ties · 1.0%</span>
+            <span class="bm-c-l">276 losses · 21.9%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1962</b> vs 0.5563</div>
+        </div>
+        <div class="bm-h2h">
+          <div class="bm-h2h-head">
+            <span class="bm-h2h-a">ISOR</span><span class="bm-h2h-x">vs</span><span class="bm-h2h-b">Companella</span>
+            <span class="bm-h2h-n">1262 maps</span>
+          </div>
+          <div class="bm-h2h-meter">
+            <i class="bm-m-win" style="width: 71.9%"></i>
+            <i class="bm-m-tie" style="width: 1.8%"></i>
+            <i class="bm-m-loss" style="width: 26.3%"></i>
+          </div>
+          <div class="bm-h2h-counts">
+            <span class="bm-c-w">907 wins · 71.9%</span>
+            <span class="bm-c-t">23 ties · 1.8%</span>
+            <span class="bm-c-l">332 losses · 26.3%</span>
+          </div>
+          <div class="bm-h2h-mae">MAE <b>0.1962</b> vs 0.4276</div>
+        </div>
+      </div>
+
+      <!-- Skillset Breakdown -->
+      <h3 class="bm-block-title">Skillset breakdown — ISOR on Tiers 11–17</h3>
+      <div class="bm-skill-grid">
+        <div class="bm-skill bm-skill--speed">
+          <div class="bm-skill-top">
+            <div class="bm-skill-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <span class="bm-skill-n">109 maps</span>
+          </div>
+          <span class="bm-skill-name">Speed / Bursts</span>
+          <div class="bm-skill-metrics">
+            <div><span>MAE</span><b>0.1917</b></div>
+            <div><span>RMSE</span><b>0.2490</b></div>
+            <div><span>Exact ≤0.20</span><b style="color: var(--green);">67.9%</b></div>
+            <div><span>Close ≤0.50</span><b style="color: var(--blue);">92.7%</b></div>
+          </div>
+        </div>
+        <div class="bm-skill bm-skill--jack">
+          <div class="bm-skill-top">
+            <div class="bm-skill-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <span class="bm-skill-n">181 maps</span>
+          </div>
+          <span class="bm-skill-name">Jack / Chordjack</span>
+          <div class="bm-skill-metrics">
+            <div><span>MAE</span><b>0.2036</b></div>
+            <div><span>RMSE</span><b>0.2688</b></div>
+            <div><span>Exact ≤0.20</span><b style="color: var(--green);">59.7%</b></div>
+            <div><span>Close ≤0.50</span><b style="color: var(--blue);">93.9%</b></div>
+          </div>
+        </div>
+        <div class="bm-skill bm-skill--tech">
+          <div class="bm-skill-top">
+            <div class="bm-skill-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <span class="bm-skill-n">81 maps</span>
+          </div>
+          <span class="bm-skill-name">Tech / Poly</span>
+          <div class="bm-skill-metrics">
+            <div><span>MAE</span><b>0.2198</b></div>
+            <div><span>RMSE</span><b>0.2801</b></div>
+            <div><span>Exact ≤0.20</span><b style="color: var(--green);">60.5%</b></div>
+            <div><span>Close ≤0.50</span><b style="color: var(--blue);">95.1%</b></div>
+          </div>
+        </div>
+        <div class="bm-skill bm-skill--stamina">
+          <div class="bm-skill-top">
+            <div class="bm-skill-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="6" width="18" height="12" rx="2"></rect>
+                <line x1="23" y1="13" x2="23" y2="11"></line>
+                <line x1="6" y1="10" x2="6" y2="14"></line>
+                <line x1="10" y1="10" x2="10" y2="14"></line>
+              </svg>
+            </div>
+            <span class="bm-skill-n">102 maps</span>
+          </div>
+          <span class="bm-skill-name">Stamina / JS</span>
+          <div class="bm-skill-metrics">
+            <div><span>MAE</span><b>0.2283</b></div>
+            <div><span>RMSE</span><b>0.3149</b></div>
+            <div><span>Exact ≤0.20</span><b style="color: var(--green);">54.9%</b></div>
+            <div><span>Close ≤0.50</span><b style="color: var(--blue);">93.1%</b></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transparency -->
+      <div class="bm-notice">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <div style="flex: 1; min-width: 0;">
+          <p><strong>Evaluation transparency &amp; reproducibility:</strong> these benchmark metrics originate from
+            <strong>independent local testing</strong> conducted to evaluate estimation accuracy, strictly adhering to
+            the methodology and map pool of <a href="https://github.com/LeoBlackMT/VSRG-DanEstimation-Benchmark"
+              target="_blank" rel="noopener">Leo_Black's VSRG DanEstimation Benchmark</a>.
+          </p>
+          <p style="margin-top: 8px; font-size: 0.79rem; color: var(--t2);">For 100% reproducible transparency,
+            <strong>every single raw prediction row across all 1,364 benchmark beatmaps is publicly auditable and
+              verifiable</strong>:
+          </p>
+          <div class="bm-notice-actions">
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/main/src/08_isor_engine/README.md"
+              target="_blank" rel="noopener" class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>ISOR Algorithm Docs (README.md)</span>
+            </a>
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/main/src/08_isor_engine/ISOR.csv"
+              target="_blank" rel="noopener" class="cl-dl cl-dl--secondary">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span>Raw Benchmark Predictions (ISOR.csv)</span>
+            </a>
+            <a href="https://github.com/LeoBlackMT/VSRG-DanEstimation-Benchmark" target="_blank" rel="noopener"
+              class="cl-dl cl-dl--secondary">
+              <span>Leo_Black Benchmark Repo</span>
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Setup: How to Use ────────────────────────────── -->
+  <section class="setup-section" id="setup">
+    <div class="wrap">
+      <div class="section-intro anim-in">
+        <h2>How to use it</h2>
+        <p>Zero configuration required. Select your game below for quick setup instructions:</p>
+      </div>
+
+      <!-- Platform Selection Cards -->
+      <div class="setup-platform-grid anim-in">
+        <!-- osu!mania Platform Card -->
+        <div class="setup-platform-card setup-platform-card--mania">
+          <div class="setup-platform-head">
+            <div class="setup-platform-title-wrap">
+              <img src="images/01-base_mania.png" alt="osu!mania" class="setup-platform-icon">
+              <div>
+                <h3 class="setup-platform-title">osu!mania Setup</h3>
+                <span class="setup-platform-badge setup-platform-badge--mania">4K / 7K · tosu Bridge</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-platform-steps">
+            <div class="setup-pstep">
+              <span class="setup-pstep-num">1</span>
+              <div class="setup-pstep-body">
+                <strong>Launch osu!</strong>
+                <p>Open <em>osu! stable</em> or <em>osu! lazer</em> and navigate to song select.</p>
+              </div>
+            </div>
+            <div class="setup-pstep">
+              <span class="setup-pstep-num">2</span>
+              <div class="setup-pstep-body">
+                <strong>Run tosu</strong>
+                <p>A lightweight background reader for live osu! game memory.</p>
+              </div>
+            </div>
+            <div class="setup-pstep">
+              <span class="setup-pstep-num">3</span>
+              <div class="setup-pstep-body">
+                <strong>Launch DanOverlay</strong>
+                <p>Run <code>DanOverlay.exe</code> — auto-connects to tosu instantly.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-platform-footer">
+            <a href="https://github.com/tosuapp/tosu" target="_blank" rel="noopener"
+              class="setup-pbtn setup-pbtn--mania">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span>Get tosu (Required for osu!)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Etterna Platform Card -->
+        <div class="setup-platform-card setup-platform-card--etterna">
+          <div class="setup-platform-head">
+            <div class="setup-platform-title-wrap">
+              <img src="images/Etterna (1).png" alt="Etterna" class="setup-platform-icon">
+              <div>
+                <h3 class="setup-platform-title">Etterna Setup</h3>
+                <span class="setup-platform-badge setup-platform-badge--etterna">Native .sm / .ssc · Auto Lua
+                  Bridge</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-platform-steps">
+            <div class="setup-pstep">
+              <span class="setup-pstep-num"
+                style="background: rgba(62, 201, 180, 0.15); border-color: rgba(62, 201, 180, 0.4); color: var(--teal);">1</span>
+              <div class="setup-pstep-body">
+                <strong>Run DanOverlay</strong>
+                <p>Open <code>DanOverlay.exe</code> — auto-detects active Etterna themes.</p>
+              </div>
+            </div>
+            <div class="setup-pstep">
+              <span class="setup-pstep-num"
+                style="background: rgba(62, 201, 180, 0.15); border-color: rgba(62, 201, 180, 0.4); color: var(--teal);">2</span>
+              <div class="setup-pstep-body">
+                <strong>Auto-Theme Bridge</strong>
+                <p>Automatically bridges Til Death, Rebirth, Simply Love, and fallback.</p>
+              </div>
+            </div>
+            <div class="setup-pstep">
+              <span class="setup-pstep-num"
+                style="background: rgba(62, 201, 180, 0.15); border-color: rgba(62, 201, 180, 0.4); color: var(--teal);">3</span>
+              <div class="setup-pstep-body">
+                <strong>Live Simfile &amp; Wife%</strong>
+                <p>Estimates Dan rank, MSD profiles, and Wife% grade badges in real time.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-platform-footer"
+            style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/ec6ab5bbb49a11bf098546efa8bebac40e4f174e/src/02_runtime_bridge/etterna/bridges/README.md"
+              target="_blank" rel="noopener" class="setup-pbtn setup-pbtn--etterna">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              <span>Etterna Bridge &amp; Manual Setup Guide</span>
+            </a>
+            <span class="setup-pnote"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
+                viewBox="0 0 24 24" style="display:inline-block; vertical-align:-2px; margin-right:4px;">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>Zero manual file editing · Automatic <code>.dan_backup</code> safety system</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-compat anim-in">
+        <div class="compat-row">
+          <span class="compat-tag compat-ok"><svg width="12" height="12" fill="none" stroke="currentColor"
+              stroke-width="2.5" viewBox="0 0 24 24"
+              style="display:inline-block; vertical-align:-2px; margin-right:4px;">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>osu! stable — full support</span>
+          <span class="compat-tag compat-ok"><svg width="12" height="12" fill="none" stroke="currentColor"
+              stroke-width="2.5" viewBox="0 0 24 24"
+              style="display:inline-block; vertical-align:-2px; margin-right:4px;">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>Etterna — native .sm/.ssc &amp; Wife% tracking</span>
+          <span class="compat-tag compat-partial"><svg width="12" height="12" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24" style="display:inline-block; vertical-align:-2px; margin-right:4px;">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>osu! lazer — custom rate changes in HT/DT mods are not detected</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Gallery: Showcase grid ───────────────────────── -->
+  <section class="gallery-section" id="gallery">
+    <div class="wrap">
+      <div class="section-intro anim-in">
+        <h2>Six skins. Your choice.</h2>
+        <p>The overlay ships with <strong>six</strong> distinct visual designs — three originals and <span
+            class="g-new-badge">three new in v2.0</span>. Pick the one that fits your stream layout.</p>
+      </div>
+
+      <!-- ── Original skins ──────────────────────────── -->
+      <p class="gallery-group-label anim-in">Original</p>
+      <div class="gallery-grid anim-in">
+        <div class="g-card tilt-card lb-trigger">
+          <div class="g-img"><img src="images/Overlay%20Skins/Classic1.png" alt="Classic skin — compact horizontal bar">
+          </div>
+          <div class="g-info">
+            <span class="g-map">Classic Skin</span>
+            <span class="g-tier">Horizontal compact bar · Minimal height</span>
+          </div>
+        </div>
+        <div class="g-card tilt-card lb-trigger">
+          <div class="g-img"><img src="images/Overlay%20Skins/Classic2.png" alt="Classic skin gameplay view"></div>
+          <div class="g-info">
+            <span class="g-map">Classic — In-game</span>
+            <span class="g-tier">Full info view during gameplay</span>
+          </div>
+        </div>
+        <div class="g-card tilt-card lb-trigger">
+          <div class="g-img"><img src="images/Overlay%20Skins/Modern1.png" alt="Modern skin layout"></div>
+          <div class="g-info">
+            <span class="g-map">Modern Skin</span>
+            <span class="g-tier">Premium glass design · Full detail</span>
+          </div>
+        </div>
+        <div class="g-card tilt-card lb-trigger">
+          <div class="g-img"><img src="images/Overlay%20Skins/Modern2.png" alt="Modern skin gameplay view"></div>
+          <div class="g-info">
+            <span class="g-map">Modern — In-game</span>
+            <span class="g-tier">Rich stats with background art</span>
+          </div>
+        </div>
+        <div class="g-card tilt-card lb-trigger">
+          <div class="g-img"><img src="images/Overlay%20Skins/Graph.png" alt="Graph skin with real-time density"></div>
+          <div class="g-info">
+            <span class="g-map">Graph Skin</span>
+            <span class="g-tier">Real-time NPS density chart</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── v2.0 new skins ──────────────────────────── -->
+      <p class="gallery-group-label gallery-group-label--new anim-in">New in v2.0</p>
+      <div class="gallery-grid gallery-grid--new anim-in">
+        <div class="g-card g-card--new tilt-card lb-trigger">
+          <div class="g-new-pill">UI-4</div>
+          <div class="g-img"><img src="images/Overlay%20Skins/Monolith(Collapsed).png"
+              alt="Monolith skin — vertical frosted glass card"></div>
+          <div class="g-info">
+            <span class="g-map">Monolith <em>(new!)</em></span>
+            <span class="g-tier">Vertical frosted card · SVG ring synced to DP · Expandable drawer</span>
+          </div>
+        </div>
+        <div class="g-card g-card--new tilt-card lb-trigger">
+          <div class="g-new-pill">UI-5</div>
+          <div class="g-img"><img src="images/Overlay%20Skins/Broadcast(Collapsed).png"
+              alt="Broadcast skin — horizontal OBS bar"></div>
+          <div class="g-info">
+            <span class="g-map">Broadcast Bar <em>(new!)</em></span>
+            <span class="g-tier">Horizontal OBS-ready split layout · Large DP number · Gradient dan name</span>
+          </div>
+        </div>
+        <div class="g-card g-card--new tilt-card lb-trigger">
+          <div class="g-new-pill">UI-6</div>
+          <div class="g-img"><img src="images/Overlay%20Skins/Vignette(Collapsed).png"
+              alt="Vignette skin — oversized typography"></div>
+          <div class="g-info">
+            <span class="g-map">Vignette <em>(new!)</em></span>
+            <span class="g-tier">Oversized typography · 10rem DP · Oval sub-bars · Glass stats panel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Charts: Animated carousel ────────────────────── -->
+  <section class="charts-section" id="charts">
+    <div class="wrap">
+      <div class="section-intro anim-in">
+        <h2>Press G. Get a chart.</h2>
+        <p>Click the overlay window and press <kbd>G</kbd> to generate a full-resolution density graph — complete NPS
+          timeline with per-skillset MSD bars. Saved to your Desktop automatically.</p>
+      </div>
+    </div>
+    <div class="carousel-viewport anim-in" id="charts-viewport">
+      <div class="carousel-track" id="charts-track">
+        <!-- Set A -->
+        <div class="c-card tilt-card lb-trigger">
+          <img
+            src="images/new graph design/Various Artists - Dan ~ REFORM ~ StaminaMap Pack [LazorBeamz ~ Alpha ~ (Marathon)]_20260514_175132.png"
+            alt="LazorBeamz Alpha" loading="lazy">
+          <span>LazorBeamz · <b style="color:var(--blue)">α · STAM</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger">
+          <img
+            src="images/new graph design/Various Artists - NEO ~ Dan ~ REFORM [NightTheater [1.176x] ~ Neo Delta Jack]_20260516_165450.png"
+            alt="NightTheater 1.176x" loading="lazy">
+          <span>NightTheater 1.176x · <b style="color:var(--orange)">δ · JACK</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger">
+          <img
+            src="images/new graph design/Various Artists - NEO ~ Dan ~ REFORM [No One Escapes Trucks [1.1x] ~ Neo Delta Stamina]_20260516_165513.png"
+            alt="No One Escapes Trucks" loading="lazy">
+          <span>No One Escapes Trucks 1.1x · <b style="color:var(--orange)">δ · STAM</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger">
+          <img
+            src="images/new graph design/Various Artists - Alpha Tech Practice Pack [Peace Breaker 1.0 ~ Fullerene- (Mid_High)]_20260515_235828.png"
+            alt="Peace Breaker" loading="lazy">
+          <span>Peace Breaker · <b style="color:var(--blue)">α · TECH</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger">
+          <img
+            src="images/new graph design/Unknown - Snow's Beta Practice (Speed) [~ Mercury Lamp (1.2x) ~ [_Flechazo_]]_20260516_002110.png"
+            alt="Mercury Lamp 1.2x" loading="lazy">
+          <span>Mercury Lamp 1.2x · <b style="color:var(--teal)">β · SPEED</b></span>
+        </div>
+        <!-- Set B (duplicate for loop) -->
+        <div class="c-card tilt-card lb-trigger" aria-hidden="true">
+          <img
+            src="images/new graph design/Various Artists - Dan ~ REFORM ~ StaminaMap Pack [LazorBeamz ~ Alpha ~ (Marathon)]_20260514_175132.png"
+            alt="" loading="lazy">
+          <span>LazorBeamz · <b style="color:var(--blue)">α · STAM</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger" aria-hidden="true">
+          <img
+            src="images/new graph design/Various Artists - NEO ~ Dan ~ REFORM [NightTheater [1.176x] ~ Neo Delta Jack]_20260516_165450.png"
+            alt="" loading="lazy">
+          <span>NightTheater 1.176x · <b style="color:var(--orange)">δ · JACK</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger" aria-hidden="true">
+          <img
+            src="images/new graph design/Various Artists - NEO ~ Dan ~ REFORM [No One Escapes Trucks [1.1x] ~ Neo Delta Stamina]_20260516_165513.png"
+            alt="" loading="lazy">
+          <span>No One Escapes Trucks 1.1x · <b style="color:var(--orange)">δ · STAM</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger" aria-hidden="true">
+          <img
+            src="images/new graph design/Various Artists - Alpha Tech Practice Pack [Peace Breaker 1.0 ~ Fullerene- (Mid_High)]_20260515_235828.png"
+            alt="" loading="lazy">
+          <span>Peace Breaker · <b style="color:var(--blue)">α · TECH</b></span>
+        </div>
+        <div class="c-card tilt-card lb-trigger" aria-hidden="true">
+          <img
+            src="images/new graph design/Unknown - Snow's Beta Practice (Speed) [~ Mercury Lamp (1.2x) ~ [_Flechazo_]]_20260516_002110.png"
+            alt="" loading="lazy">
+          <span>Mercury Lamp 1.2x · <b style="color:var(--teal)">β · SPEED</b></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Honesty (Accuracy) ───────────────────────────── -->
+  <section class="honesty-section" id="honesty">
+    <div class="wrap">
+      <div class="honesty-layout anim-in">
+        <div class="honesty-text">
+          <h2>It's not always right.</h2>
+          <p class="honesty-lead">
+            Straight answer: <strong>it works well most of the time</strong>, and then occasionally it'll
+            confidently call your Zeta-tier speedjack map "Delta High" and act completely normal about it.
+          </p>
+          <div class="honesty-points">
+            <details open>
+              <summary>Wrong reads will happen</summary>
+              <p>Anything with unusual density, hybrid patterns, or charts between two skillsets — the classifier can
+                misfire. Sometimes badly. I hope the upcoming rescues and corrections will help, but honestly some maps
+                are just hard to classify.</p>
+            </details>
+            <details>
+              <summary>Genuinely absurd results are real</summary>
+              <p>If it reads your Eta stamina marathon as "Alpha LOW" — that's not a glitch, it's just the algorithm
+                having a terrible moment. No crash, no warning.</p>
+            </details>
+            <details>
+              <summary>Getting patched, for real</summary>
+              <p>Every bad call gets investigated. The goal is always a structural fix — not a special case for one map,
+                but a change that handles that class of chart correctly.</p>
+            </details>
+          </div>
+        </div>
+        <div class="honesty-quote">
+          <blockquote>
+            It's like asking a friend who plays a ton of osu!mania to size up any map on the spot.
+            Knows the Reform pack well, has strong opinions, solid gut reads —
+            <strong>and occasionally says something completely unhinged.</strong>
+            You still ask anyway.
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Download ─────────────────────────────────────── -->
+  <section class="download-section" id="download">
+    <div class="wrap">
+      <div class="dl-box anim-in">
+        <div class="dl-box-glow"></div>
+        <div class="dl-platforms-preview">
+          <div class="dl-platform-badge" title="osu!mania 4K / 7K">
+            <img src="images/01-base_mania.png" alt="osu!mania" class="dl-platform-icon">
+            <span>osu!mania</span>
+          </div>
+          <span class="dl-platform-plus">+</span>
+          <div class="dl-platform-badge dl-platform-badge--etterna" title="Etterna Native .sm / .ssc">
+            <img src="images/Etterna (1).png" alt="Etterna" class="dl-platform-icon">
+            <span>Etterna</span>
+          </div>
+        </div>
+
+        <h2 class="dl-title">Download DanOverlay</h2>
+        <p class="dl-version">v3.2 · Standalone .exe (71.37 MB) · Zero Installation Required</p>
+
+        <div class="dl-btn-wrapper">
+          <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/3.2/DanOverlay.3.2.exe"
+            target="_blank" rel="noopener" class="dl-main-btn" aria-label="Download DanOverlay for Windows">
+            <div class="dl-btn-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+            </div>
+            <div class="dl-btn-text-group">
+              <span class="dl-btn-label">Download for Windows</span>
+              <span class="dl-btn-sub">v3.2 · 71.37 MB · 64-bit Standalone (.exe)</span>
+            </div>
+            <span class="cta-shine"></span>
+          </a>
+        </div>
+
+        <div class="dl-reqs">
+          <span class="dl-req-item">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
+            </svg>
+            Windows 10 / 11
+          </span>
+          <span class="dl-dot">·</span>
+          <span class="dl-req-item">osu! <small>or</small> Etterna</span>
+          <span class="dl-dot">·</span>
+          <span class="dl-req-item">tosu <small>(osu!)</small> / auto-bridge <small>(Etterna)</small></span>
+          <span class="dl-dot">·</span>
+          <span class="dl-req-item">4K or 7K</span>
+        </div>
+
+        <div class="dl-source">
+          <a href="https://github.com/acarranzao1a-png/Dan-Overlay" target="_blank" rel="noopener"
+            class="dl-source-link">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            <span>Source code is available on GitHub</span>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+              class="dl-source-arrow">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Changelog ────────────────────────────────────── -->
+  <section class="changelog-section" id="changelog">
+    <div class="wrap">
+      <div class="section-intro anim-in">
+        <h2>Changelog</h2>
+      </div>
+
+      <div class="cl-list anim-in">
+
+        <!-- ── v3.2 ──────────────────────────── -->
+        <div class="cl-item cl-open" id="cl-v3-2">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-latest">LATEST</span>
+              <span class="cl-ver">v3.2</span>
+            </div>
+            <span class="cl-date">November 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">ISOR 3.2 — The Rice Model</p>
+            <ul>
+              <li><strong>Gradient-Boosted Rice Model (Pure Python):</strong> Replaces the 3.0/3.1 Ridge/RBF correction
+                stack with 500 depth-3 trees trained with Huber loss (&alpha; = 0.7) over 124 features (4 canonical
+                projections, 109 structural features, 11 curve statistics). Exported to
+                <code>config/rice_model.json</code> and evaluated in pure Python with zero ML runtime dependencies.
+              </li>
+              <li><strong>#1 Exact-Tier Rate on the Competitive Band:</strong> Gated strictly to
+                <code>[12.0, 15.0)</code> DP where out-of-fold validation holds, leaving calibrated physics outside the
+                gate. Reaches <strong>71.89% exact rate (&plusmn;0.20)</strong> on Tiers 11&ndash;17 (1,103 maps, #1 of
+                9 estimators) and <strong>67.83% exact / 0.1962 MAE</strong> out-of-fold across all 1,262 rice maps with
+                100% coverage.
+              </li>
+              <li><strong>Full-Corpus Auditable Benchmarks:</strong> Published all 1,364 out-of-fold prediction rows in
+                <code>src/08_isor_engine/ISOR.csv</code> alongside full methodology &amp; caveats in
+                <code>src/08_isor_engine/README.md</code>, plus a standalone matplotlib chart generator.
+              </li>
+            </ul>
+
+            <p class="cl-section-title">Three New Skins &amp; Unified Window Sizing</p>
+            <ul>
+              <li><strong>12 Overlay Skins Total:</strong> Added <strong>Skin 10 (Dynamic Orbital Island)</strong>,
+                <strong>Skin 11 (Chrono-Tachometer Blade)</strong> with GPU-composited revving animations &amp; F1 shift
+                lights, and <strong>Skin 12 (Swiss Brutalist Ticker)</strong>.
+              </li>
+              <li><strong>Single Canonical Size Table:</strong> Consolidated all 12 skins' viewport and outer window
+                dimensions into <code>config/skin_dimensions.json</code> with exact client-area Win32 sizing
+                (<code>AdjustWindowRectEx</code>). Every skin now opens in its native collapsed/default layout with zero
+                overflow or leftover space.</li>
+            </ul>
+
+            <p class="cl-section-title">Half the Size &amp; Lighter Runtime Footprint</p>
+            <ul>
+              <li><strong>71.37 MB Standalone Executable:</strong> Cut bundle size in half (down from ~147 MB) by
+                removing unused <code>pandas</code>, <code>tzdata</code>, <code>scipy</code>, <code>PyQt6</code>, and
+                dev packages, and compiling bytecode with <code>--optimize 1</code>.</li>
+              <li><strong>Lower Memory &amp; Faster Switching:</strong> Eliminated ~40&ndash;80 MB of idle startup RAM
+                from unused imports, freed exported 1800&times;980 chart canvas memory immediately after export, cached
+                Etterna simfile metadata to skip repeat disk parses, and bundled
+                <code>tools/measure_overlay_memory.ps1</code> to audit real runtime footprint.
+              </li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/3.2/DanOverlay.3.2.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download Direct v3.2 (71.37 MB)
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/3.2" target="_blank" rel="noopener"
+                class="cl-dl"
+                style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); color: var(--t1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Release Notes v3.2 (GitHub)
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/main/src/08_isor_engine/README.md"
+                target="_blank" rel="noopener" class="cl-dl"
+                style="background: rgba(62, 201, 180, 0.08); border-color: rgba(62, 201, 180, 0.25); color: #5eead4;">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                ISOR Engine Docs (README.md)
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── v3.1.0 ──────────────────────────── -->
+        <div class="cl-item" id="cl-v3-1-0">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-major">MAJOR</span>
+              <span class="cl-ver">v3.1.0</span>
+            </div>
+            <span class="cl-date">August 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">New Game Support — Native Etterna Integration</p>
+            <ul>
+              <li><strong>Universal Etterna Compatibility:</strong> DanOverlay now natively tracks and estimates Dan
+                difficulty across both <strong>osu!mania</strong> and <strong>Etterna</strong>. Connects non-invasively
+                through atomic file-based IPC in the game's <code>Save/</code> directory.</li>
+              <li><strong>Automatic Lua Theme Bridge Installer:</strong> Automatically detects your Etterna installation
+                and injects lightweight bridge scripts into active themes (<strong>Til Death</strong>,
+                <strong>Rebirth</strong>, <strong>Simply Love</strong>, <strong>_fallback</strong>, etc.) with automated
+                safety backups (<code>.dan_backup</code>) — zero manual setup required under standard configurations.
+              </li>
+              <li><strong>Advanced Simfile Timing Engine:</strong> High-precision <em>O</em>(<em>N</em>) parser for
+                <code>.sm</code> and <code>.ssc</code> files with full support for multiple BPM shifts,
+                <code>STOPS</code>, <code>DELAYS</code>, split timings, and hold/roll mechanics in under 15 ms.
+              </li>
+              <li><strong>Dynamic Rate &amp; MSD Sync:</strong> Continuous rate scaling (0.5×–2.0×) with instantaneous
+                re-estimation on the song wheel. Reads native Etterna MSD skillset ratings directly from the game
+                client.</li>
+              <li><strong>Wife% Accuracy &amp; Official Grade Badges:</strong> Live gameplay tracking with 0% in-game
+                CPU overhead; detects score screens in <code>ScreenEvaluation</code> and renders official Etterna grade
+                badges (<code>AAAAA</code>, <code>AAAA</code>, <code>AAA</code>, <code>AA</code>, <code>A</code>,
+                <code>B</code>, <code>C</code>, <code>D</code>, <code>F</code>) with authentic theme color accents.
+              </li>
+            </ul>
+
+            <p class="cl-section-title">Core Engine Performance &amp; Vectorization</p>
+            <ul>
+              <li><strong>Linear-Time Choke Point Analyzer:</strong> Refactored
+                <code>extract_choke_and_local_strains</code> from <em>O</em>(<em>W</em> · log <em>N</em>) binary
+                searches to an <em>O</em>(<em>W</em> + <em>N</em>) two-pointer monotonic sliding window.
+              </li>
+              <li><strong>Active State Tracking in Biomechanical Strain:</strong> Transition loops in Shannon column
+                entropy now track active state transitions, bypassing ~95% of redundant evaluations.</li>
+              <li><strong>Vectorized Sunny SR Calculations:</strong> Batch NumPy array operations for anchor and usage
+                metrics with zero mathematical drift (100% bit-exact outputs).</li>
+              <li><strong>High-Resolution Density Chart Export:</strong> Full support for Etterna simfiles, rendering
+                symmetric pack banners, rate multipliers, and density histograms on export.</li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/3.1/DanOverlay.3.1.0.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download Direct v3.1.0
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/3.1" target="_blank" rel="noopener"
+                class="cl-dl" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Release Notes v3.1 (GitHub)
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/ec6ab5bbb49a11bf098546efa8bebac40e4f174e/src/02_runtime_bridge/etterna/bridges/README.md"
+                target="_blank" rel="noopener" class="cl-dl"
+                style="background: rgba(62, 201, 180, 0.08); border-color: rgba(62, 201, 180, 0.25); color: #5eead4;">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                Etterna Bridge Guide (README)
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── v3.0.0 ──────────────────────────── -->
+        <div class="cl-item" id="cl-v3-0-0">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-major">MAJOR</span>
+              <span class="cl-ver">v3.0.0</span>
+            </div>
+            <span class="cl-date">August 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">New Engine — ISOR (Isotonic Strain Organic Residual)</p>
+            <ul>
+              <li><strong>Top-tier benchmark accuracy:</strong> on the core arena (Tiers 11–17, 1103 maps) ISOR has the
+                <em>highest exact-tier rate of any estimator</em> — 71.9% of maps within ±0.20 Dan, with 95.4% close
+                (±0.50), RMSE 0.2499 and 100% coverage. It ranks fourth on mean absolute error (0.1722 against Koishi's
+                0.1510), a gap that comes from a heavier tail rather than a worse average fit. On the full ladder (1262
+                maps) it answers every map and scores 67.8% exact. See the full visual suite in the <a
+                  href="#benchmarks">Benchmarks</a> section.
+              </li>
+              <li><strong>Continuous by design:</strong> continuous formulations only, zero step discontinuities —
+                isotonic regression (PAVA), multi-layer biomechanical strain modeling, an organic difficulty baseline
+                built from convex triangulation, and an L2-regularized residual corrector.</li>
+              <li><strong>Human consensus as ground truth:</strong> calibrated against 1364 verified benchmark beatmaps
+                plus the official Reform (151) and Celestial (160) course packs. Generalization is measured with
+                stratified K-fold cross-validation against independent corpora, not assumed.</li>
+              <li><strong>Strict rate monotonicity:</strong> a beatmap will never display a lower Dan rating when
+                playback speed is increased — verified on the full rate grid from 0.5× to 2.0× across all patterns.</li>
+              <li><strong>Non-destructive coexistence:</strong> ISOR is the new default engine, switchable from the
+                overlay settings; the legacy engine remains available. Strictly 4K rice scope — LN-dominant and 7K
+                charts fall outside ISOR's domain, and those modes are disabled in the UI instead of silently falling
+                back.</li>
+            </ul>
+
+            <p class="cl-section-title">Estimation Modes &amp; Celestial Recalibration</p>
+            <ul>
+              <li><strong>Reform &amp; Celestial under ISOR:</strong> Signicial, Shoegazer and LN Course are disabled
+                while ISOR is active (toast + auto-switch to Reform), and the engine returns a structured
+                <code>None</code> for out-of-scope maps — never a fake low rating.
+              </li>
+              <li><strong>Celestial recalibrated:</strong> the 35-slot ruler was rebuilt from 160 official packs with
+                PAVA-monotonic slot medians — 76.9% tier accuracy and 25.6% exact slot accuracy (chance: 2.9%).</li>
+              <li><strong>Continuous top-scale gate:</strong> restores the Zeta–Kappa apex range through a cosine ramp
+                on [18.8, 19.2] without touching the benchmark calibration (verified bit-identical CSV) — 84% exact
+                tier accuracy on apex packs.</li>
+              <li><strong>Mods &amp; rates:</strong> NM/HT/DT/NC plus lazer custom rates with a three-layer
+                monotonicity guarantee (SR clamp, native MSD anchors, DP lower-anchor floor).</li>
+            </ul>
+
+            <p class="cl-section-title">Bug Fixes &amp; Robustness</p>
+            <ul>
+              <li><strong>Frozen-build model lookup:</strong> resources now resolve through
+                <code>sys._MEIPASS/config/</code> in PyInstaller builds.
+              </li>
+              <li><strong>Hidden imports fixed:</strong> <code>rhythm_profile</code> and <code>strain</code> modules
+                are bundled correctly.</li>
+              <li><strong>No more silent parse failures:</strong> structured errors with <code>dp=None</code> instead
+                of a fake 1.00 / low-tier result.</li>
+              <li><strong>Accurate overlay charts:</strong> chart data is re-rendered from dynamically computed
+                values — hardcoded numbers removed.</li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/3.0/DanOverlay.3.0.0.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download Direct v3.0.0
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/3.0" target="_blank" rel="noopener"
+                class="cl-dl" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Detailed Release Notes (GitHub)
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── v2.3.5 ──────────────────────────── -->
+        <div class="cl-item" id="cl-v2-3-5">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-patch">STABLE</span>
+              <span class="cl-ver">v2.3.5</span>
+            </div>
+            <span class="cl-date">August 13, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">New Streamer Skin — "Josh type shit" (UI-9)</p>
+            <ul>
+              <li><strong>Ultra-Clean Streamer HUD:</strong> High-contrast, minimal layout crafted specifically for live
+                broadcasts and content creators.</li>
+              <li><strong>Dynamic Beatmap Background:</strong> Displays the active beatmap artwork with adjustable blur
+                (<code>--cfg-blur</code>) and brightness (<code>--cfg-brightness</code>) controls in Settings.</li>
+              <li><strong>Optimized Green Screen Chroma Key:</strong> Solid <code>#00ff00</code> background mode with
+                automatic suppression of text blur and halos for clean OBS keying.</li>
+              <li><strong>Authentic Dan Color Palette:</strong> Derives vivid signature colors dynamically from official
+                Reform, Celestial, Signicial, Shoegazer, LN Course, and 7K palettes.</li>
+              <li><strong>Three Layout Density Modes (<kbd>L</kbd>):</strong> Full (540×175), Compact without map text
+                (480×130), and Minimalist Symbol row (360×90).</li>
+            </ul>
+
+            <p class="cl-section-title">Window Sizing &amp; Core Fixes</p>
+            <ul>
+              <li><strong>Native Win32 Window Resizing:</strong> Integrated direct <code>SetWindowPos</code> execution
+                in the host bridge to guarantee instantaneous, 100% reliable window resizing on Windows.</li>
+              <li><strong>Automatic Resolution Restore:</strong> Exiting the settings dialog via Save, Cancel, backdrop
+                click, or <kbd>Esc</kbd> now accurately restores the overlay's pre-settings window size across all skins
+                and layout modes.</li>
+              <li><strong>Accurate Skin Defaults:</strong> Calibrated default resolutions and aspect ratios for all 9
+                skins.</li>
+              <li><strong>Tosu WebSocket Connection Fix:</strong> Eliminated the recurring "Blocked external WebSocket
+                request" warning messages spamming the tosu console by restoring the connection guard and delaying
+                communication until the overlay is fully initialized.</li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/2.3.5/DanOverlay.2.3.5.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download Direct v2.3.5
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/2.3.5" target="_blank"
+                rel="noopener" class="cl-dl"
+                style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Detailed Release Notes (GitHub)
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── v2.3.1 ──────────────────────────── -->
+        <div class="cl-item" id="cl-v2-3-1">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-patch">PATCH</span>
+              <span class="cl-ver">v2.3.1</span>
+            </div>
+            <span class="cl-date">August 4, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Custom-Rate Interpolation &amp; HT Fixes (osu!lazer)</p>
+            <ul>
+              <li><strong>Alternative-Mode Stages Reverting to NM Fix:</strong> Fixed issue where alternative-mode
+                stages (Celestial, Signicial, Shoegazer, LN Course) reverted to No-Mod stage names under custom clock
+                rates in osu!lazer (e.g., 1.6× returning Alpha instead of Eta). All modes now re-derive their stage
+                labels dynamically from the interpolated DP.</li>
+              <li><strong>Extrapolation Below HT (&lt; 0.75×):</strong> Custom speed multipliers below 0.75× now
+                extrapolate smoothly against the 0.75×–1.0× rate segment instead of freezing or clamping to t=0.0.</li>
+            </ul>
+
+            <p class="cl-section-title">Skin 7 (Sunny Rebirth) &amp; Skin 8 (Hero-Dan Lazer) Visual Polish</p>
+            <ul>
+              <li><strong>Smart Marquee Edge Mask:</strong> Edge fade gradient mask on long map titles now activates
+                <em>only when the text overflows and scrollea</em>. Short map titles stay 100% solid and crisp without
+                edge clipping.
+              </li>
+              <li><strong>Full Multi-Color Palettes:</strong> Background triangle particles and vertical neon pillars
+                now cycle through all 3 or 4 signature colors of multi-color Dans (10th Dan, Gamma, Signicial VII,
+                etc.).</li>
+              <li><strong>DP Pill Gradient Intensity:</strong> Hero-Dan Lazer (skin 8) sublevel pills feature a smooth
+                left-to-right neon intensity ramp to make the active sublevel immediately clear.</li>
+              <li><strong>High-Contrast Stat Cards:</strong> Redesigned MSD, Star Rate, BPM, and Length stat boxes with
+                frosted dark glass (<code>rgba(10, 12, 18, 0.84)</code> + <code>blur(12px)</code>), crisp borders, and
+                drop shadow for maximum readability over background animation.</li>
+              <li><strong>Live Playback Timer:</strong> The LENGTH card in skin 8 now mirrors real-time playback
+                progress (<code>left / total</code>).</li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/2.3.1/DanOverlay.2.3.1.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download Direct v2.3.1
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/2.3.1" target="_blank"
+                rel="noopener" class="cl-dl"
+                style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Detailed Release Notes (GitHub)
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── v2.3 ──────────────────────────── -->
+        <div class="cl-item" id="cl-v2-3">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-major">MAJOR</span>
+              <span class="cl-ver">v2.3</span>
+            </div>
+            <span class="cl-date">August 3, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">New Skins — Sunny Rebirth &amp; Hero-Dan Lazer</p>
+            <ul>
+              <li><strong>Sunny Rebirth (ui-7)</strong> — Live Sunny Star Rating HUD featuring real-time strain bars
+                (Jbar, Pbar, Xbar, Abar), marquee title scrolling, and MANIA 4K/7K badge. Suppresses mode result screens
+                to keep focus purely on Sunny SR.</li>
+              <li><strong>Hero-Dan Lazer (ui-8)</strong> — Dan-focused HUD with giant Dan rank title, animated DP with
+                sublevel pills, mode category badge, and an expandable map-info drawer toggled by key
+                <strong>L</strong>. Calibrated default window size (594×234 / 594×138 at 94% zoom).
+              </li>
+              <li>All 8 skins are now selectable from any settings panel with instant runtime skin switching.</li>
+            </ul>
+
+            <p class="cl-section-title">Sunny Strain Components Engine</p>
+            <ul>
+              <li>The calculation pipeline now exposes <strong>jbar_max, pbar_max, xbar_max, and abar_mean</strong> in
+                the analysis payload for both 4K and 7K maps to drive live strain bars in skin 7.</li>
+            </ul>
+
+            <p class="cl-section-title">Pre-Open-Source Calculation Fixes</p>
+            <ul>
+              <li><strong>7K Difficulty Detection Under Speed Mods</strong> — The 7K pipeline now uses rate-aware
+                primary SR analysis and boundary interpolation under DT/HT/osu!lazer custom clock rates.</li>
+              <li><strong>Custom-Rate SR Monotonicity (osu!lazer)</strong> — <code>analyze_map</code> now interpolates
+                results across nearest native clock rates (0.75× / 1.0× / 1.5×), ensuring strictly monotonic Dan
+                estimates across any custom speed multiplier.</li>
+            </ul>
+
+            <p class="cl-section-title">UI &amp; System Bug Fixes</p>
+            <ul>
+              <li>Fixed skin-switch crash where <code>ui.panel</code> was null on overlays without
+                <code>#danPanel</code>.
+              </li>
+              <li>Fixed L-key toggle state sync so expandable skins collapse and expand properly.</li>
+              <li>Fixed locked-mode scaling clipping on skins 7 &amp; 8 by replacing <code>vh</code> units with
+                percentage height chains.</li>
+              <li>Fixed window reset button (Ctrl+R) to restore skin 8's calibrated default size (594×234).</li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/2.3/DanOverlay.2.3.0.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download Direct v2.3.0
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/blob/main/docs/changelog-2.3.md" target="_blank"
+                rel="noopener" class="cl-dl"
+                style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Detailed Changelog (GitHub)
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── v2.2 ──────────────────────────── -->
+        <div class="cl-item" id="cl-v2-2">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v2.2</span>
+            </div>
+            <span class="cl-date">July 2, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Calculation Pipeline &amp; Detection Fixes</p>
+            <ul>
+              <li><strong>7K Dan Estimation Rewrite</strong> — The 7K system now uses the same boundary interpolation
+                method as Reform and all other scoring modes. Previously the overlay picked the nearest tier by median
+                distance, which caused ambiguous maps near tier boundaries to display the wrong rank. The new method
+                uses midpoints between adjacent tier medians, eliminating the ambiguity.</li>
+              <li><strong>Celestial &amp; LN Course Sublevel Fix</strong> — The maximum DP fraction for Celestial and LN
+                Course modes was capped at 0.50, preventing the overlay from ever showing a "High" sublevel. Both caps
+                have been corrected to allow the full 0.00–0.99 range, consistent with Reform, Signicial, and Shoegazer.
+              </li>
+              <li><strong>Map Detection Fix</strong> — Certain .osu files from external editors contain blank lines
+                inside the hit objects section. The overlay's parser did not skip these blank lines and crashed on
+                <code>float()</code> conversion, returning star rating 0.0. This caused maps to display as "1st Dan Low"
+                regardless of actual difficulty. The fix skips empty lines during parsing, restoring correct detection
+                on all maps.
+              </li>
+              <li><strong>SR Engine Failure Guard</strong> — When the star rating engine fails for any reason (file
+                locked by the game, corrupted timing data, encoding issues), the overlay now returns an explicit error
+                payload instead of passing SR=0.0 through the ranking pipeline. This prevents the misleading "1st Dan
+                Low" display on genuinely undetectable maps.</li>
+              <li><strong>BPM Rate Adjustment</strong> — BPM values are now multiplied by the active speed mod rate (DT
+                ×1.5, HT ×0.75, osu!lazer custom rates). Previously the overlay always displayed the original BPM
+                regardless of mod selection.</li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/2.2/DanOverlay.2.2.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download v2.2
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/2.2" target="_blank" rel="noopener"
+                class="cl-dl" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Detailed Changelog
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── v2.1.1 ─────────────────────────── -->
+        <div class="cl-item" id="cl-v2-1-1">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v2.1.1</span>
+            </div>
+            <span class="cl-date">June 15, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Bug Fixes</p>
+            <ul>
+              <li>Fixed a visual bug where the results screen text would always display "Perfect!" at the end of a play,
+                regardless of the actual final accuracy achieved.</li>
+            </ul>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/2.1.1/DanOverlay.2.1.1.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download v2.1.1
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/2.1.1" target="_blank"
+                rel="noopener" class="cl-dl"
+                style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Detailed Changelog
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── v2.1 ─────────────────────────── -->
+        <div class="cl-item" id="cl-v2-1">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v2.1</span>
+            </div>
+            <span class="cl-date">June 9, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Performance Optimisation</p>
+            <ul>
+              <li><strong>Calculation speed optimization</strong> — The analysis pipeline was optimized to eliminate
+                freezes when navigating between beatmaps. Map switching is now much smoother!</li>
+              <li><strong>Symmetrical adjustments to sublevels from low to high</strong> — Low to High sublevels have
+                been adjusted with symmetry (20% bands) to ensure bars and text always match perfectly across all modes.
+              </li>
+            </ul>
+            <p style="font-style: italic; opacity: 0.8; margin-bottom: 20px;">(well, on my shitty pc I didn't notice a
+              difference in calculation speed but in theory it should work lol)</p>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/2.1/DanOverlay.2.1.exe"
+                target="_blank" rel="noopener" class="cl-dl">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Download v2.1
+              </a>
+              <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/2.1" target="_blank" rel="noopener"
+                class="cl-dl" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1);">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Detailed Changelog
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── v2.0 FLAGSHIP ─────────────────────────── -->
+        <div class="cl-item cl-item-v2" id="cl-v2">
+          <button class="cl-head cl-head-v2">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-v2">v2.0</span>
+              <span class="cl-ver cl-ver-v2">Major Update</span>
+            </div>
+            <span class="cl-date">June 5, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body cl-body-v2">
+
+            <div class="v2-hero-row">
+              <div class="v2-pill v2-pill-primary">7K Support</div>
+              <div class="v2-pill v2-pill-secondary">3 New Skins</div>
+              <div class="v2-pill v2-pill-tertiary">Celestial DP</div>
+            </div>
+
+            <p class="cl-section-title cl-section-v2-primary">osu!mania 7K — Official Support</p>
+            <ul>
+              <li><strong>15 tiers calibrated</strong> — from 0th Dan through Stellium, sourced from 7K Regular Dan
+                practice packs. Each tier has a median SR value enforcing strict monotonicity across the full scale.
+                on 688 test maps using general means and 45 from the original maps.</li>
+              <li><strong>Per-skillset SR means</strong> — Jack, Tech, Speed, Stream, and Hybrid rulers calibrated
+                independently. Same architecture as the 4K Reform engine.</li>
+              <li><strong>Sublevel detection</strong> — Low, Mid-Low, Mid, Mid-High, High — derived from fractional
+                position within each tier's min/max range.</li>
+              <li>DP scale: 0th = 0.0 through Stellium = 14.0. Beyond Stellium displays as a distinct state.</li>
+            </ul>
+
+            <p class="cl-section-title cl-section-v2-secondary">Three New Skins</p>
+            <ul>
+              <li><strong>Vertical Monolith (ui-4)</strong> — Frosted glass card with circular SVG ring synced to DP
+                fraction. Gradient dan name, 5 progressive sub-bars, ambient radial background that shifts per tier
+                palette.</li>
+              <li><strong>Broadcast Bar (ui-5)</strong> — Horizontal split layout designed for OBS. Colored left panel
+                carries the DP as a large number; dark right panel shows the dan name as gradient text. Manual border
+                brightness and thickness controls.</li>
+              <li><strong>Vignette (ui-6)</strong> — Oversized typography. 10rem DP integer, 7rem rank name,
+                rotated "DP" label, oval sub-bars, glass stats panel with tier-colored accent.</li>
+              <li>All three share: L-key expandable stats drawer, demo cycling mode, full settings panel integration,
+                and registration in the skin switcher.</li>
+            </ul>
+
+
+
+            <p class="cl-section-title cl-section-v2-tertiary">Celestial Mode — DP Scale</p>
+            <ul>
+              <li><strong>35-slot continuous scale</strong> — DP runs from 1.0 (Beginner I) to 35.0 (Singularity V),
+                matching the Reform engine's interpolation architecture.</li>
+              <li>Boundary interpolation on SR means gives fractional DP — confidence derived from position within each
+                slot's range.</li>
+            </ul>
+
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/2.0/DanOverlay.2.0.exe"
+              target="_blank" rel="noopener" class="cl-dl cl-dl-v2">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download v2.0
+            </a>
+          </div>
+        </div>
+
+        <!-- ── v1.8.1 ────────────────────────────────── -->
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v1.8.1</span>
+            </div>
+            <span class="cl-date">May 22, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Signicial Mode Improvements</p>
+            <ul>
+              <li><strong>Eta &amp; Theta stages</strong> — Two new scales added to the Signicial scoring mode, with
+                Greek symbol background images and custom colors. Thanks to the Signicial dan creator for the stage data
+                and feedback.</li>
+              <li>Initial calibration pass for all 18 stages (I through Theta/&theta;).</li>
+              <li>Greek stage icons (Alpha through Theta) now display as background images when in Signicial mode.</li>
+              <li>Accuracy tracking implemented: ~48% on the 72-map test set. Future per-skillset rulers will improve
+                this.</li>
+            </ul>
+
+            <p class="cl-section-title">General</p>
+            <ul>
+              <li><strong>Frameless window mode</strong> — Toggle the window title bar from the settings panel
+                (<kbd>Ctrl</kbd>+<kbd>,</kbd> → Visual → Frameless Window). Requires a restart to fully apply.</li>
+            </ul>
+
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.8.1/DanOverlay.1.8.1.exe"
+              target="_blank" rel="noopener" class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download v1.8.1
+            </a>
+          </div>
+        </div>
+
+        <!-- ── v1.8 ──────────────────────────────────── -->
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v1.8</span>
+            </div>
+            <span class="cl-date">May 16, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">New Features</p>
+            <ul>
+              <li><strong>Graph skin</strong> — New third visual design with a real-time NPS density chart. Inspired by
+                the Daniel overlay. Switch skins anytime from the settings menu.</li>
+              <li><strong>Custom window size</strong> — You can now type exact pixel dimensions in the settings panel.
+                <em>Note: the window size doesn't persist across restarts yet — you'll need to open settings and click
+                  Save after launching. The typed values do persist, just the resize step happens on Save only. I'll fix
+                  this soon.</em>
+              </li>
+              <li><strong>Redesigned NPS chart generator</strong> — The export chart has been rebuilt with a cleaner
+                Canvas renderer. Press <kbd>G</kbd> while the overlay is focused to generate one.</li>
+            </ul>
+
+            <p class="cl-section-title">Calibration</p>
+            <ul>
+              <li><strong>General adjustments</strong> — Tier boundaries recalibrated for 1st through 9th Dan. Should be
+                more consistent across all skillsets now.</li>
+            </ul>
+
+            <p class="cl-section-title">Feedback</p>
+            <ul>
+              <li>If you spot any issues or have suggestions, feel free to reach out on Discord:
+                <strong>agent_ale</strong>. Always open to feedback!
+              </li>
+            </ul>
+
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.8/DanOverlay.1.8.exe"
+              target="_blank" rel="noopener" class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download v1.8 (old)
+            </a>
+          </div>
+        </div>
+
+        <!-- ── v1.7.5 ────────────────────────────────── -->
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v1.7.5</span>
+            </div>
+            <span class="cl-date">April 20, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Calibration &amp; Fixes</p>
+            <ul>
+              <li><strong>Reform SR means recalibrated</strong> — All tier boundaries updated against the official
+                Reform pack. Accuracy improved noticeably across all skillsets.</li>
+              <li><strong>Speedjack maps</strong> — Maps with dense speedjack patterns that were reading low due to a
+                misclassification now get a correction pass. Results are better; still experimental.</li>
+              <li>Various minor SR adjustments and visual fixes carried over from v1.7 development.</li>
+            </ul>
+
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.7.5/DanOverlay.1.7.5.exe"
+              target="_blank" rel="noopener" class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download v1.7.5 (old)
+            </a>
+          </div>
+        </div>
+
+        <!-- ── v1.7 ─────────────────────────────────── -->
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v1.7</span>
+            </div>
+            <span class="cl-date">April 13, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">New Features</p>
+            <ul>
+              <li><strong>Dan Display Scale</strong> — New slider in Settings to resize the overlay elements.</li>
+              <li><strong>LN Course manual toggle</strong> — Pin LN Course mode manually with <kbd>Ctrl+5</kbd>
+                regardless of map detection.</li>
+            </ul>
+
+            <p class="cl-section-title">Bug Fixes</p>
+            <ul>
+              <li>Several display and layout issues from v1.6 fixed across both skins.</li>
+              <li>BPM display, result text, and Settings panel resize issues corrected.</li>
+              <li>LN Course badge behavior fixed when switching maps.</li>
+            </ul>
+
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/tag/1.7" target="_blank" rel="noopener"
+              class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download v1.7
+            </a>
+          </div>
+        </div>
+
+        <!-- ── v1.6 ─────────────────────────────────── -->
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v1.6</span>
+            </div>
+            <span class="cl-date">April 12, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Modern skin — the new design</p>
+            <ul>
+              <li>Added a new <strong>Modern skin</strong> — the current new layout is a compact single-row design with
+                dan name, map info, and sublevel displayed side by side.</li>
+              <li>The Classic skin remains available as the original overlay style.</li>
+              <li>Both skins share all scoring modes, MSD data, and visual effects.</li>
+              <li>Switch at any time from the settings panel (<kbd>Ctrl+,</kbd> &rarr; Skin).</li>
+            </ul>
+
+            <p class="cl-section-title">Settings Persistence</p>
+            <ul>
+              <li>All visual settings (Blur, Brightness, Logo Size, Logo Opacity, Layout, Skin, Keybinds) are now
+                <strong>saved to disk</strong> and restored on every launch.
+              </li>
+              <li>Stored locally in <code>%APPDATA%\DanOverlay\settings.json</code> &mdash; no need to reconfigure after
+                updates.</li>
+              <li>Fixed a race condition where settings could be silently lost on close.</li>
+            </ul>
+
+            <p class="cl-section-title">Visual Customization</p>
+            <ul>
+              <li>New <strong>Logo Size</strong> and <strong>Logo Opacity</strong> sliders in the settings panel to
+                control the dan background watermark.</li>
+              <li>Changes apply live as you drag and are saved automatically.</li>
+            </ul>
+
+            <p class="cl-section-title">Startup &amp; Onboarding</p>
+            <ul>
+              <li>The overlay now <strong>searches for tosu first</strong> on launch, then transitions to intro screens
+                &mdash; no more splash appearing before connection.</li>
+              <li>Tutorial prompt has a new <strong>&ldquo;Don&rsquo;t show again&rdquo;</strong> button persisted to
+                disk.</li>
+              <li>The Quick Tutorial is accessible at any time from <kbd>Ctrl+,</kbd> &rarr; Help &rarr; Start.</li>
+            </ul>
+
+            <p class="cl-section-title">Bug Fixes</p>
+            <ul>
+              <li>Fixed settings panel layout breaking in the Modern skin (buttons floating outside the panel).</li>
+              <li>Fixed Celestial/Signicial/Shoegazer PNG paths in the Classic skin.</li>
+              <li>Fixed long Celestial tier names overflowing into the map column.</li>
+              <li>Fixed overlay staying blank after switching skins.</li>
+            </ul>
+
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.6/DanOverlay.1.6.exe" download
+              class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download v1.6
+            </a>
+          </div>
+        </div>
+
+        <!-- ── v1.5 ─────────────────────────────────── -->
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-badge cl-badge-major">MAJOR</span>
+              <span class="cl-ver">v1.5</span>
+            </div>
+            <span class="cl-date">April 10, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+
+            <p class="cl-section-title">Scoring Modes</p>
+            <ul>
+              <li>Added <strong>4 alternating scoring modes</strong>: Reform, Celestial, Signicial, and Shoegazer — each
+                with a fully independent difficulty model, rank scale, and visual identity.</li>
+              <li>Switch modes on the fly: <kbd>Ctrl+1</kbd> for Reform, <kbd>Ctrl+2</kbd> for Celestial,
+                <kbd>Ctrl+3</kbd> for Signicial, <kbd>Ctrl+4</kbd> for Shoegazer.
+              </li>
+              <li>Each mode displays its own stage name, tier label, and progress bar calibrated to its specific rank
+                ladder.</li>
+            </ul>
+
+            <p class="cl-section-title">LN Course — Automatic Detection</p>
+            <ul>
+              <li>New dedicated <strong>LN Course mode</strong> with a regression model trained on long-note density and
+                hold patterns.</li>
+              <li>Activates <strong>automatically</strong> when the current map exceeds <strong>45% LN ratio</strong> —
+                no manual switching needed.</li>
+              <li>LN Course coexists with the 4 manual modes: it overrides the display only while a qualifying map is
+                selected.</li>
+            </ul>
+
+            <p class="cl-section-title">Beyond Ceiling</p>
+            <ul>
+              <li>All 5 modes now support a <strong>Beyond</strong> suffix when difficulty exceeds the highest tier
+                threshold.</li>
+              <li>The stage label stays visible — e.g. <em>Tachyon — Beyond</em> — instead of an empty or broken state.
+              </li>
+            </ul>
+
+            <p class="cl-section-title">Resize &amp; Controls</p>
+            <ul>
+              <li>Press <kbd>R</kbd> to toggle between <strong>Free resize</strong> (drag freely) and <strong>Locked
+                  resize</strong> (aspect-ratio enforced). Replaces the old streamer/personal mode picker.</li>
+              <li>Press <kbd>Ctrl+R</kbd> to reset the window to its default size instantly.</li>
+              <li>Press <kbd>Tab</kbd> to pin or unpin the overlay over osu!, keeping it fully interactive.</li>
+            </ul>
+
+            <p class="cl-section-title">Intro &amp; UI</p>
+            <ul>
+              <li>New <strong>What's New</strong> splash screen on first launch after an update.</li>
+              <li>Interactive <strong>Scoring Modes hint screen</strong> — press <kbd>Ctrl+1</kbd>–<kbd>4</kbd> to try
+                each mode before the overlay starts.</li>
+              <li>Celestial mode icons resized for better visual balance.</li>
+              <li>Intensity bar removed in Shoegazer and Celestial modes (not applicable to those scales).</li>
+            </ul>
+
+            <p class="cl-section-title">Compatibility</p>
+            <ul>
+              <li>Added automatic <strong>WebView2 Runtime detection</strong> on startup. If it's missing, the overlay
+                now shows a clear error dialog with a direct download link instead of opening a blank white window.
+                <span class="cl-experimental-note">(In theory it should work — I had nobody to test it with, lol. If you
+                  run into any issues, feel free to reach out on my Discord: <strong>agent_ale</strong>.)</span>
+              </li>
+              <li>Extended GPU compatibility flags to reduce rendering issues on certain hardware configurations.</li>
+            </ul>
+
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.5/DanOverlay.1.5.exe" download
+              class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download v1.5
+            </a>
+          </div>
+        </div>
+
+        <!-- ── v1.0.2 ──────────────────────────────── -->
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v1.0.2</span>
+            </div>
+            <span class="cl-date">April 5, 2026</span>
+            <span class="cl-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </button>
+          <div class="cl-body">
+            <ul>
+              <li>Calibration improvements for more accurate difficulty ratings</li>
+              <li>Refined rank boundary thresholds for smoother tier placement</li>
+              <li>Visual polish and layout refinements in the overlay panel</li>
+              <li>Minor stability improvements</li>
+            </ul>
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.0.2/DanOverlay.1.0.2.exe"
+              download class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download this version
+            </a>
+          </div>
+        </div>
+
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left">
+              <span class="cl-ver">v1.0.12</span>
+            </div>
+            <span class="cl-date">April 5, 2026</span>
+            <span class="cl-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span>
+          </button>
+          <div class="cl-body">
+            <ul>
+              <li>Fixed startup bridge race: map analysis no longer stucks on COMPUTING</li>
+              <li>Fixed first-map blackout: removed full black transition</li>
+              <li>Recalibrated Dan rulers with practice packs + Reform finals</li>
+              <li>Tuned Iota anchors and sublevel boundaries</li>
+              <li>Fixed speedjack misclassification regression</li>
+            </ul>
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.0.12/DanOverlay.1.0.12.exe"
+              download class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download this version
+            </a>
+          </div>
+        </div>
+
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left"><span class="cl-ver">v1.0.11</span></div>
+            <span class="cl-date">April 4, 2026</span>
+            <span class="cl-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span>
+          </button>
+          <div class="cl-body">
+            <ul>
+              <li>Mode picker on launch: Personal or Stream mode</li>
+              <li>Stream mode: 840×384 window with 1.2× zoom for OBS</li>
+              <li>Personal mode: window stays on top of osu!</li>
+            </ul>
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/1.0.11/DanOverlay.1.0.11.exe"
+              download class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download this version
+            </a>
+          </div>
+        </div>
+
+        <div class="cl-item">
+          <button class="cl-head">
+            <div class="cl-head-left"><span class="cl-ver">v1.0</span></div>
+            <span class="cl-date">April 2026</span>
+            <span class="cl-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span>
+          </button>
+          <div class="cl-body">
+            <ul>
+              <li>Initial release</li>
+              <li>Live Dan tier estimation — Alpha through Kappa</li>
+              <li>Skillset classification: CJ · JS · STAM · HS · TECH</li>
+              <li>PNG chart export — full-res density graph</li>
+            </ul>
+            <a href="https://github.com/acarranzao1a-png/Dan-Overlay/releases/download/Update/DanOverlay.1.0.exe"
+              download class="cl-dl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              Download this version
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Credits + Footer ─────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <!-- Ecosystem Acknowledgements -->
+      <div class="footer-ack anim-in">
+        <div class="footer-ack-header">
+          <span class="footer-ack-tag">Community &amp; Foundations</span>
+          <h4 class="footer-ack-title">Acknowledgements &amp; Ecosystem Credits</h4>
+          <p class="footer-ack-sub">DanOverlay stands on the research, tools, and algorithms built by the rhythm game
+            community:</p>
+        </div>
+
+        <div class="credits-grid">
+          <div class="credit-card credit-card--blue">
+            <div class="credit-card-head">
+              <div class="credit-icon credit-icon--blue">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+              </div>
+              <span class="credit-pill credit-pill--blue">Benchmark Foundations</span>
+            </div>
+            <div class="credit-body">
+              <h5 class="credit-name">Leo_Black &amp; ROXY</h5>
+              <p class="credit-desc">Algorithmic groundwork, strain calculation inspiration, and benchmark methodology
+                via <code>osumania_map_analyser</code>.</p>
+            </div>
+          </div>
+
+          <div class="credit-card credit-card--purple">
+            <div class="credit-card-head">
+              <div class="credit-icon credit-icon--purple">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
+              </div>
+              <span class="credit-pill credit-pill--purple">Original Concept</span>
+            </div>
+            <div class="credit-body">
+              <h5 class="credit-name">Daniel (TheBagelOfMan)</h5>
+              <p class="credit-desc">Pioneered the original live Dan overlay concept, real-time tier display
+                inspiration, and HUD accessibility.</p>
+            </div>
+          </div>
+
+          <div class="credit-card credit-card--gold">
+            <div class="credit-card-head">
+              <div class="credit-icon credit-icon--gold">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </div>
+              <span class="credit-pill credit-pill--gold">Strain Mechanics</span>
+            </div>
+            <div class="credit-body">
+              <h5 class="credit-name">sunnyxxy</h5>
+              <p class="credit-desc">Star Rating Rebirth reference, continuous strain curve formulation, and
+                foundational difficulty mathematics.</p>
+            </div>
+          </div>
+
+          <div class="credit-card credit-card--green">
+            <div class="credit-card-head">
+              <div class="credit-icon credit-icon--green">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M8 12h8" />
+                </svg>
+              </div>
+              <span class="credit-pill credit-pill--green">Visual Identity</span>
+            </div>
+            <div class="credit-body">
+              <h5 class="credit-name">icyilc</h5>
+              <p class="credit-desc">Designed the official Reform Dan tier Greek letter visual insignias and logos (α
+                through κ).</p>
+            </div>
+          </div>
+
+          <div class="credit-card credit-card--teal">
+            <div class="credit-card-head">
+              <div class="credit-icon credit-icon--teal">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
+              </div>
+              <span class="credit-pill credit-pill--teal">Etterna Bridge &amp; Knowledge</span>
+            </div>
+            <div class="credit-body">
+              <h5 class="credit-name">JoseMGS3 (DanielEtterna)</h5>
+              <p class="credit-desc">Etterna Lua bridge knowledge sharing, architectural inspiration, and codebase
+                reference via <code>DanielEtterna</code>.</p>
+            </div>
+          </div>
+
+          <div class="credit-card credit-card--cyan">
+            <div class="credit-card-head">
+              <div class="credit-icon credit-icon--cyan">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </div>
+              <span class="credit-pill credit-pill--cyan">Core Engines &amp; Telemetry</span>
+            </div>
+            <div class="credit-body">
+              <h5 class="credit-name">MinaCalc &amp; tosu</h5>
+              <p class="credit-desc">Underlying skillset pattern classification engine (MinaCalc MSD) and real-time
+                process memory telemetry bridge (tosu).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Author / Creator Showcase Card -->
+      <div class="author-card anim-in">
+        <div class="author-glow"></div>
+        <div class="author-card-inner">
+          <div class="author-avatar-wrap">
+            <img src="images/d6e162bc6d08572c6ddfad33e6b31ef4.jpg" alt="8DOUL" class="author-avatar">
+            <span class="author-status-dot" title="Active developer"></span>
+          </div>
+
+          <div class="author-info">
+            <div class="author-title-row">
+              <div class="author-name-group">
+                <span class="author-label">Lead Developer</span>
+                <h3 class="author-name">8DOUL</h3>
+              </div>
+              <div class="author-discord-badge" title="Connect on Discord">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+                </svg>
+                <span class="author-discord-label">Discord</span>
+                <span class="author-discord-tag">agent_ale</span>
+              </div>
+            </div>
+
+            <p class="author-bio">
+              Design, algorithm, calibration, testing, debugging, the website, the charts, everything.
+              One person. Zero collaborators. Too much free time.
+            </p>
+
+            <div class="author-sub-credit">
+              <span>Dan tier insignia &amp; Greek letter designs by <strong>icyilc</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bar">
+        <div class="footer-bar-left">
+          <span class="footer-copy">DanOverlay v3.2</span>
+          <span class="footer-dot">·</span>
+          <span>Open Source</span>
+        </div>
+        <div class="footer-bar-center">
+          <a href="https://github.com/acarranzao1a-png/Dan-Overlay" target="_blank" rel="noopener"
+            class="footer-gh-link">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            <span>View Source on GitHub</span>
+          </a>
+        </div>
+        <div class="footer-bar-right">
+          <span>Not affiliated with osu! or the Reform project</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Lightbox ─────────────────────────────────────── -->
+  <div id="lightbox">
+    <button id="lb-close" aria-label="Close lightbox">✕</button>
+    <img id="lb-img" src="" alt="">
+  </div>
+
+  <script src="benchmark-data.js?v=3.2"></script>
+  <script src="benchmark-charts.js?v=3.2"></script>
+  <script src="script.js?v=3.2"></script>
+</body>
+
+</html>
