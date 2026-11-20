@@ -1,6 +1,6 @@
 # DanOverlay — Official Website
 
-Source code for the official **[DanOverlay](https://danoverlay.pages.dev/)** website — the real-time Dan estimation overlay for **osu!mania** and **Etterna** (4K/7K), powered by the **ISOR 3.2** engine.
+Source code for the official **[DanOverlay](https://danoverlay.pages.dev/)** website — the real-time Dan estimation overlay for **osu!mania** and **Etterna** (4K/7K), powered by the **ISOR 3.2** engine (Overlay v3.3).
 
 > **Looking for the application itself?**  
 > Visit the main repository: **[acarranzao1a-png/Dan-Overlay](https://github.com/acarranzao1a-png/Dan-Overlay)**
