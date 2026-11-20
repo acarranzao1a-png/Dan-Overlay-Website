@@ -1,21 +1,21 @@
 {
   "meta": {
     "descripcion": "Snapshot canonico de los benchmarks del sitio, recomputado desde los CSVs.",
-    "high_pool": 1103,
-    "full_pool": 1262,
+    "high_pool": 1114,
+    "full_pool": 1280,
     "canon_pool": 60,
     "fuente": "results/*.csv del VSRG-DanEstimation-Benchmark; canon segun la submission publicada",
-    "updated": "2026-11-18"
+    "updated": "2026-11-19"
   },
   "high": {
     "ISOR": {
-      "valid": 1103,
-      "mae": 0.1722,
-      "rmse": 0.2499,
-      "exact": 71.89,
-      "close": 95.38,
-      "moderate": 4.26,
-      "miss": 0.36
+      "valid": 1114,
+      "mae": 0.1776,
+      "rmse": 0.2682,
+      "exact": 71.54,
+      "close": 94.97,
+      "moderate": 4.31,
+      "miss": 0.72
     },
     "Koishi": {
       "valid": 1096,
@@ -92,13 +92,13 @@
   },
   "full": {
     "ISOR": {
-      "valid": 1262,
-      "mae": 0.1962,
-      "rmse": 0.2875,
-      "exact": 67.83,
-      "close": 92.63,
-      "moderate": 6.5,
-      "miss": 0.87
+      "valid": 1280,
+      "mae": 0.2047,
+      "rmse": 0.3107,
+      "exact": 67.27,
+      "close": 91.95,
+      "moderate": 6.64,
+      "miss": 1.41
     },
     "Koishi": {
       "valid": 1106,
@@ -226,10 +226,10 @@
   },
   "stacks": {
     "ISOR": [
-      71.89,
-      23.49,
-      4.26,
-      0.36
+      71.54,
+      23.43,
+      4.31,
+      0.72
     ],
     "Koishi": [
       71.53,
@@ -330,13 +330,13 @@
   },
   "patterns": {
     "jack": {
-      "valid": 355,
-      "mae": 0.1614,
-      "rmse": 0.2196,
-      "exact": 72.96,
-      "close": 96.34,
-      "moderate": 3.38,
-      "miss": 0.28
+      "valid": 364,
+      "mae": 0.176,
+      "rmse": 0.2746,
+      "exact": 72.25,
+      "close": 95.33,
+      "moderate": 3.3,
+      "miss": 1.37
     },
     "speed": {
       "valid": 247,
@@ -348,22 +348,22 @@
       "miss": 0.0
     },
     "stamina": {
-      "valid": 282,
-      "mae": 0.1496,
+      "valid": 283,
+      "mae": 0.1498,
       "rmse": 0.2124,
-      "exact": 78.37,
-      "close": 97.16,
-      "moderate": 2.48,
+      "exact": 78.09,
+      "close": 97.17,
+      "moderate": 2.47,
       "miss": 0.35
     },
     "tech": {
-      "valid": 207,
-      "mae": 0.202,
-      "rmse": 0.3321,
-      "exact": 67.15,
-      "close": 92.27,
-      "moderate": 6.76,
-      "miss": 0.97
+      "valid": 208,
+      "mae": 0.2055,
+      "rmse": 0.3375,
+      "exact": 66.83,
+      "close": 91.83,
+      "moderate": 7.21,
+      "miss": 0.96
     }
   }
 }
